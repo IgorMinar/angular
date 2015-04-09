@@ -31,24 +31,28 @@ es6DevTree = stew.rename(es6DevTree, function(relativePath) {
 var es5DevTree = new TraceurCompiler(es6DevTree, '.js', {modules: 'instantiate', sourceMaps: true});
 es5DevTree = stew.rename(es5DevTree, '.es6.map', '.js.map');
 
-var traceurRuntime = path.relative(__dirname, TraceurCompiler.RUNTIME_PATH);
-var vendorScriptsTree = flatten(mergeTrees([
-  new Funnel('node_modules/es6-module-loader/dist/', {include:['es6-module-loader-sans-promises.src.js']}),
-  new Funnel('node_modules/zone.js/', {include:['zone.js']}),
-  new Funnel('node_modules/zone.js/', {include:['long-stack-trace-zone.js']}),
-  new Funnel('node_modules/systemjs/dist/', {include:['system.src.js']}),
-  new Funnel('node_modules/systemjs/lib/', {include:['extension-register.js']}),
-  new Funnel('node_modules/systemjs/lib/', {include:['extension-cjs.js']}),
-  new Funnel('node_modules/rx/dist/', {include:['rx.all.js']}),
-  new Funnel('tools/build/snippets/', {include:['runtime_paths.js']}),
-  new Funnel(path.dirname(traceurRuntime), {include:[path.basename(traceurRuntime)]})
-]));
+var vendorScriptsTree = flatten(new Funnel('.', {
+  files: [
+    'node_modules/es6-module-loader/dist/es6-module-loader-sans-promises.src.js',
+    'node_modules/zone.js/zone.js',
+    'node_modules/zone.js/long-stack-trace-zone.js',
+    'node_modules/systemjs/dist/system.src.js',
+    'node_modules/systemjs/lib/extension-register.js',
+    'node_modules/systemjs/lib/extension-cjs.js',
+    'node_modules/rx/dist/rx.all.js',
+    'tools/build/snippets/runtime_paths.js',
+    path.relative(__dirname, TraceurCompiler.RUNTIME_PATH)
+  ]
+}));
 
-var vendorScripts_benchmark = flatten(new Funnel('tools/build/snippets', { include: [
+var vendorScripts_benchmark = flatten(new Funnel('tools/build/snippets', { files: [
   'url_params_to_form.js'
 ]}));
 
-var vendorScripts_benchmarks_external = flatten(new Funnel('node_modules/angular', { include: [
+
+
+
+var vendorScripts_benchmarks_external = flatten(new Funnel('node_modules/angular', { files: [
   'angular.js'
 ]}));
 
@@ -100,7 +104,7 @@ htmlTree = replace(htmlTree, {
 });
 var scripts = mergeTrees(servingTrees, {overwrite:true});
 var polymer = stew.mv(
-  flatten(new Funnel('.', {include: [
+  flatten(new Funnel('.', {files: [
     'bower_components/polymer/lib/polymer.html',
     'tools/build/snippets/url_params_to_form.js'
   ]})),
