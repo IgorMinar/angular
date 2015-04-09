@@ -1,3 +1,5 @@
+'use strict';
+
 var broccoli = require('broccoli');
 var copyDereferenceSync = require('copy-dereference').sync;
 var fse = require('fs-extra');
@@ -35,14 +37,18 @@ function broccoliBuild(tree, outputRoot) {
 
       var dir = hash.directory;
       try {
-        copyDereferenceSync(path.join(dir, outputRoot), distPath);
+        time('Write build output', function() {
+          copyDereferenceSync(path.join(dir, outputRoot), distPath);
+        });
       } catch (err) {
         if (err.code === 'EEXIST') err.message += ' (we cannot build into an existing directory)';
         throw err;
       }
     })
     .finally(function () {
-      builder.cleanup();
+      time('Build cleanup', function() {
+        builder.cleanup();
+      });
     })
     .catch(function (err) {
       // Should show file and line/col if present
@@ -53,4 +59,13 @@ function broccoliBuild(tree, outputRoot) {
       console.error('\nBuild failed');
       process.exit(1);
     });
+}
+
+
+function time(label, work) {
+
+  var start = Date.now();
+  work();
+  var duration = Date.now() - start;
+  console.log("%s: %dms", label, duration);
 }
