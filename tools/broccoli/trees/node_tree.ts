@@ -20,7 +20,7 @@ module.exports = function makeNodeTree() {
   var outputPackages = ['angular2', 'benchpress', 'rtts_assert'];
 
   var modulesTree = new Funnel('modules', {
-    include: ['rtts_assert/**'],
+    include: ['angular2/**', 'benchpress/**', 'rtts_assert/**', '**/e2e_test/**'],
     exclude: [
       'angular2/src/core/zone/vm_turn_zone.es6',
       'angular2/test/core/application_spec.js',

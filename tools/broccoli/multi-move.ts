@@ -15,9 +15,7 @@ interface FromToMapping {
 
 interface FingerprintMap {}
 
-interface TreeDiff {
-  [index: number]: string;
-}
+type TreeDiff = string[];
 
 class MultiMove implements BroccoliTree {
 
@@ -35,15 +33,12 @@ class MultiMove implements BroccoliTree {
   }
 
   rebuild() {
-    console.log('>>>> rebuild');
-    console.log('input path: ', this.inputPath);
-    console.log('cache path: ', this.cachePath);
-    console.log('output path: ', this.outputPath);
+    console.log('>>>> rebuild <<<');
 
     let skipDiffLog = false;
 
     if (!this.initialized) {
-      // just simplink the input and output tree without changing anything
+      // just simlink the input and output tree without changing anything
       if (fs.existsSync(this.inputPath)) {
         this.initialized = true;
         skipDiffLog = true;
@@ -52,12 +47,14 @@ class MultiMove implements BroccoliTree {
       }
     }
 
-    let treeDiff: TreeDiff = this.treeWalkSync(this.inputPath, this.dirtyCheck.bind(this));
+    let startTimeMs = Date.now();
+    let treeDiff:TreeDiff = this.treeWalkSync(this.inputPath, this.dirtyCheck.bind(this));
+    let durationMs = Date.now() - startTimeMs;
 
+    console.log('FS dirty check done in %d ms', durationMs);
     if (!skipDiffLog) {
-      console.log('Tree diff detected!', treeDiff);
+      console.log('Tree diff detected!', `[\n  ${treeDiff.join('\n  ')}\n]`);
     }
-
   }
 
   cleanup() {
@@ -75,17 +72,16 @@ class MultiMove implements BroccoliTree {
   }
 
   private treeWalkSync(rootDir: string, fileAction: (string, stat) => boolean, result = []) {
-    console.log('walk', rootDir);
     fs.readdirSync(rootDir).forEach((segment) => {
-      let relativePath = path.join(rootDir, segment);
-      let pathStat = fs.statSync(relativePath);
+      let absolutePath = path.join(rootDir, segment);
+      let pathStat = fs.statSync(absolutePath);
 
       if (pathStat.isDirectory()) {
-        this.treeWalkSync(relativePath, fileAction, result);
-      }
-
-      if (fileAction(relativePath, pathStat)) {
-        result.push(relativePath);
+        this.treeWalkSync(absolutePath, fileAction, result);
+      } else {
+        if (fileAction(absolutePath, pathStat)) {
+          result.push(absolutePath);
+        }
       }
     });
 
