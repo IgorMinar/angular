@@ -10,6 +10,8 @@ var ts2dart = require('../broccoli-ts2dart');
 var TraceurCompiler = require('../traceur');
 var TypescriptCompiler = require('../typescript');
 
+var multiMove = require('../multi-move');
+
 var projectRootDir = path.normalize(path.join(__dirname, '..', '..', '..'));
 
 
@@ -18,7 +20,7 @@ module.exports = function makeNodeTree() {
   var outputPackages = ['angular2', 'benchpress', 'rtts_assert'];
 
   var modulesTree = new Funnel('modules', {
-    include: ['angular2/**', 'benchpress/**', 'rtts_assert/**', '**/e2e_test/**'],
+    include: ['rtts_assert/**'],
     exclude: [
       'angular2/src/core/zone/vm_turn_zone.es6',
       'angular2/test/core/application_spec.js',
@@ -27,6 +29,8 @@ module.exports = function makeNodeTree() {
       'angular2/test/render/**'
     ]
   });
+
+  modulesTree = multiMove(modulesTree);
 
   var nodeTree = new TraceurCompiler(modulesTree, '.js', '.map', {
     sourceMaps: true,
