@@ -1,33 +1,61 @@
-/// <reference path="./broccoli-filter.d.ts" />
+/// <reference path="./broccoli.d.ts" />
 /// <reference path="../typings/node/node.d.ts" />
 /// <reference path="../typings/fs-extra/fs-extra.d.ts" />
 
-import Filter = require('broccoli-filter');
 import fse = require('fs-extra');
 import path = require('path');
+import TreeDirtyChecker = require('./tree-dirty-checker');
 
 /**
  * Intercepts each file as it is copied to the destination tempdir,
  * and tees a copy to the given path outside the tmp dir.
  */
-class DestCopy extends Filter {
-  constructor(private inputTree, private outputRoot: string) { super(inputTree); }
-
-  getDestFilePath(relativePath: string): string { return relativePath; }
-
-  processString(content: string, relativePath: string): string { return content; }
-
-  processFile(srcDir, destDir, relativePath): Promise<any> {
-    return super.processFile(srcDir, destDir, relativePath)
-        .then(x => {
-          var destFile = path.join(this.outputRoot, this.getDestFilePath(relativePath));
-          var dir = path.dirname(destFile);
-          fse.mkdirsSync(dir);
-          fse.copySync(path.join(srcDir, relativePath), destFile);
-        });
-  }
-}
-
+// TODO: handle file removal
 export = function destCopy(inputTree, outputRoot) {
   return new DestCopy(inputTree, outputRoot);
+}
+
+
+class DestCopy implements BroccoliTree {
+
+  treeDirtyChecker: TreeDirtyChecker;
+  initialized = false;
+
+  // props monkey-patched by broccoli builder:
+  inputPath = null;
+  cachePath = null;
+  outputPath = null;
+
+
+  constructor(public inputTree: BroccoliTree,
+              public outputRoot: string) {}
+
+
+  rebuild() {
+    let firstRun = !this.initialized;
+    this.init();
+
+    let diffResult = this.treeDirtyChecker.checkTree();
+    diffResult.log(!firstRun);
+
+    diffResult.diff.forEach((changedFilePath) => {
+      var destFilePath = path.join(this.outputRoot, changedFilePath);
+
+      var destDirPath = path.dirname(destFilePath);
+      fse.mkdirsSync(destDirPath);
+      fse.copySync(path.join(this.inputPath, changedFilePath), destFilePath);
+      console.log(`>>>> ${destFilePath}`);
+    });
+  }
+
+
+  private init() {
+    if (!this.initialized) {
+      this.initialized = true;
+      this.treeDirtyChecker = new TreeDirtyChecker(this.inputPath);
+    }
+  }
+
+
+  cleanup() {}
 }

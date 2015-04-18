@@ -7,7 +7,7 @@ var renderLodashTemplate = require('broccoli-lodash');
 var replace = require('broccoli-replace');
 var stew = require('broccoli-stew');
 var ts2dart = require('../broccoli-ts2dart');
-var TraceurCompiler = require('../traceur');
+var traceurCompiler = require('../traceur');
 var TypescriptCompiler = require('../typescript');
 
 var multiMove = require('../multi-move');
@@ -17,7 +17,7 @@ var projectRootDir = path.normalize(path.join(__dirname, '..', '..', '..'));
 
 module.exports = function makeNodeTree() {
   // list of npm packages that this build will create
-  var outputPackages = ['angular2', 'benchpress', 'rtts_assert'];
+  var outputPackages = ['an gular2', 'benchpress', 'rtts_assert'];
 
   var modulesTree = new Funnel('modules', {
     include: ['angular2/**', 'benchpress/**', 'rtts_assert/**', '**/e2e_test/**'],
@@ -32,7 +32,7 @@ module.exports = function makeNodeTree() {
 
   modulesTree = multiMove(modulesTree);
 
-  var nodeTree = new TraceurCompiler(modulesTree, '.js', '.map', {
+  var nodeTree = traceurCompiler(modulesTree, '.js', '.map', {
     sourceMaps: true,
     annotations: true,      // parse annotations
     types: true,            // parse types
@@ -115,5 +115,5 @@ module.exports = function makeNodeTree() {
   nodeTree = mergeTrees([nodeTree, typescriptTree], { overwrite: true });
   nodeTree = mergeTrees([nodeTree, docs, packageJsons]);
 
-  return stew.mv(nodeTree, 'js/cjs');
+  return stew.log(stew.mv(nodeTree, 'js/cjs'), {output: 'tree'});
 };
