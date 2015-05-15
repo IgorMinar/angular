@@ -646,7 +646,15 @@ gulp.task('build.js.prod', ['build.tools'], function() {
  * public task
  */
 gulp.task('build.js.cjs', ['build.tools'], function(done) {
-  runSequence('!build.js.cjs', done);
+  runSequence('!build.js.cjs', function(err) {
+    if (err) {
+      var error = new Error('build sequence failed');
+      error.showStack = false;
+      done(error);
+    } else {
+      done();
+    }
+  });
 });
 
 
