@@ -29,6 +29,7 @@ export function wrapDiffingPlugin(pluginClass): DiffingPluginWrapperFactory {
 export interface DiffingBroccoliPlugin {
   rebuild(diff: DiffResult): (Promise<any>| void);
   cleanup ? () : void;
+  inputPath?: string;
 }
 
 
@@ -45,9 +46,15 @@ class DiffingPluginWrapper implements BroccoliTree {
   description = null;
 
   // props monkey-patched by broccoli builder:
-  inputPath = null;
+  _inputPath = null;
+  _inputPaths = null;
   cachePath = null;
   outputPath = null;
+  get inputPath() { return this._inputPath; }
+  set inputPath(path) {
+    this._inputPath = path;
+    if (this.initialized) this.wrappedPlugin.inputPath = path;
+  }
 
   constructor(private pluginClass, private wrappedPluginArguments) {
     if (Array.isArray(wrappedPluginArguments[0])) {

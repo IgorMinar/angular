@@ -65,8 +65,9 @@ export class TreeDiffer {
         if (!(this.include && !absolutePath.match(this.include)) &&
             !(this.exclude && absolutePath.match(this.exclude))) {
           result.filesChecked++;
-          if (this.isFileDirty(absolutePath, pathStat)) {
-            result.changedPaths.push(path.relative(this.rootPath, absolutePath));
+          let relativePath = path.relative(this.rootPath, absolutePath);
+          if (this.isFileDirty(relativePath, pathStat)) {
+            result.changedPaths.push(relativePath);
           }
         }
       }
@@ -96,11 +97,10 @@ export class TreeDiffer {
 
 
   private detectDeletionsAndUpdateFingerprints(result: DiffResult) {
-    for (let absolutePath in this.fingerprints) {
-      if (!(this.include && !absolutePath.match(this.include)) &&
-          !(this.exclude && absolutePath.match(this.exclude))) {
-        if (this.fingerprints[absolutePath] !== null) {
-          let relativePath = path.relative(this.rootPath, absolutePath);
+    for (let relativePath in this.fingerprints) {
+      if (!(this.include && !relativePath.match(this.include)) &&
+          !(this.exclude && relativePath.match(this.exclude))) {
+        if (this.fingerprints[relativePath] !== null) {
           result.removedPaths.push(relativePath);
         }
       }

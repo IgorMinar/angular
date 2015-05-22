@@ -35,14 +35,22 @@ class DiffingTSCompiler implements DiffingBroccoliPlugin {
   static includeExtensions = ['.ts'];
   static excludeExtensions = ['.d.ts'];
 
-  constructor(public inputPath: string, public cachePath: string, public options) {
+  private _inputPath: string = null;
+  get inputPath() { return this._inputPath; }
+  set inputPath(path: string) {
+    if (path === this._inputPath) return;
+    this._inputPath = path;
+    this.tsServiceHost = new CustomLanguageServiceHost(this.tsOpts, this.rootFilePaths,
+                                                       this.fileRegistry, path);
+    this.tsService = ts.createLanguageService(this.tsServiceHost, ts.createDocumentRegistry());
+  }
+
+  constructor(inputPath: string, public cachePath: string, public options) {
     this.tsOpts = Object.create(options);
     this.tsOpts.outDir = this.cachePath;
     this.tsOpts.target = (<any>ts).ScriptTarget[options.target];
     this.rootFilePaths = options.rootFilePaths ? options.rootFilePaths.splice(0) : [];
-    this.tsServiceHost = new CustomLanguageServiceHost(this.tsOpts, this.rootFilePaths,
-                                                       this.fileRegistry, this.inputPath);
-    this.tsService = ts.createLanguageService(this.tsServiceHost, ts.createDocumentRegistry());
+    this.inputPath = inputPath;
   }
 
 
