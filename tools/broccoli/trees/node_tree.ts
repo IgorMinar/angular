@@ -28,10 +28,9 @@ module.exports = function makeNodeTree(destinationPath) {
   });
 
   var typescriptTree = compileWithTypescript(modulesTree, {
-    allowNonTsExtensions: false,
+    declaration: true,
     emitDecoratorMetadata: true,
     experimentalDecorators: true,
-    declaration: true,
     mapRoot: '', /* force sourcemaps to use relative path */
     module: 'commonjs',
     noEmitOnError: true,
