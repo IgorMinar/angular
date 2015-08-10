@@ -1,13 +1,14 @@
 {
     "compilerOptions": {
+        "declaration": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "declaration": true,
-        "module": "commonjs",
+        "mapRoot": "",
+        "noEmitOnError": true,
+        "outDir": "../dist/js/dev/es6",
         "rootDir": ".",
         "sourceMap": true,
         "sourceRoot": ".",
-        "target": "es5",
-        "outDir": "../../dist/js/cjs"
+        "target": "es6"
     }
 }
