@@ -86,7 +86,7 @@ export class RawEntity {
   }
 
   remove(key: string) {
-    if (!key.contains('.')) {
+    if (key.indexOf('.') === -1) {
       return MapWrapper.delete(this._data, key);
     }
     var pieces = key.split('.');

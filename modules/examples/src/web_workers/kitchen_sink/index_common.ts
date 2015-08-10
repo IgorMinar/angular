@@ -3,7 +3,7 @@ import {StringWrapper} from 'angular2/src/facade/lang';
 
 // A service available to the Injector, used by the HelloCmp component.
 @Injectable()
-class GreetingService {
+export class GreetingService {
   greeting: string = 'hello';
 }
 

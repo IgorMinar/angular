@@ -2,7 +2,7 @@ import {ElementRef, Component, Directive, View, Injectable, Renderer} from 'angu
 
 // A service available to the Injector, used by the HelloCmp component.
 @Injectable()
-class GreetingService {
+export class GreetingService {
   greeting: string = 'hello';
 }
 

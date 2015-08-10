@@ -29,7 +29,7 @@ export class Segment {
   generate(params: TouchMap): string { return ''; }
 }
 
-class TouchMap {
+export class TouchMap {
   map: StringMap<string, string> = StringMapWrapper.create();
   keys: StringMap<string, boolean> = StringMapWrapper.create();
 
