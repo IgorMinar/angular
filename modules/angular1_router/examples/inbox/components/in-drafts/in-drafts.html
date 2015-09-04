@@ -1,0 +1,11 @@
+<div ng-if="ready">
+  <h2 class="page-title">Drafts</h2>
+
+  <ol class="inbox-list">
+    <li ng-repeat="item in items" class="inbox-item-record">
+      <a id="item-{{ item.id }}"
+         ng-link="['/detailPage', {'id':item.id}]">
+        {{ item.subject }}</a>
+    </li>
+  </ol>
+</div>
