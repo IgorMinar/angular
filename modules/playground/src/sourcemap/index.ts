@@ -1,5 +1,5 @@
 import {BaseException, WrappedException} from '@angular/facade';
-import {bootstrap} from '@angular/platform-browser';
+import {bootstrap} from '@angular/platform-browser-dynamic';
 import {Component} from '@angular/core';
 
 @Component({

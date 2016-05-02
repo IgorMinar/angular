@@ -8,6 +8,23 @@ cd `dirname $0`
 TSCONFIG=./modules/tsconfig.json
 echo "====== (all)COMPILING: \$(npm bin)/tsc -p ${TSCONFIG} ====="
 rm -rf ./dist/all/
+mkdir ./dist/all/
+
+# prepare all files for e2e tests
+cp -r ./modules/playground ./dist/all/
+#rsync -aP ./modules/playground/* ./dist/all/playground/
+mkdir ./dist/all/playground/vendor
+cd ./dist/all/playground/vendor
+ln -s ../../../../node_modules/es6-shim/es6-shim.js .
+ln -s ../../../../node_modules/zone.js/dist/zone.js .
+ln -s ../../../../node_modules/zone.js/dist/long-stack-trace-zone.js .
+ln -s ../../../../node_modules/systemjs/dist/system.src.js .
+ln -s ../../../../node_modules/base64-js/lib/b64.js .
+ln -s ../../../../node_modules/reflect-metadata/Reflect.js .
+ln -s ../../../../node_modules/rxjs/bundles/Rx.js .
+cd -
+
+# compile ts code
 $(npm bin)/tsc -p ${TSCONFIG}
 
 

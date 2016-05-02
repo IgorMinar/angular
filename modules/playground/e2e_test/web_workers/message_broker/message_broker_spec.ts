@@ -1,5 +1,4 @@
-import {verifyNoBrowserErrors} from '@angular/testing/src/e2e_util';
-import {PromiseWrapper} from '@angular/facade';
+import {verifyNoBrowserErrors} from '@angular/platform-browser/testing_e2e';
 
 var URL = 'playground/src/web_workers/message_broker/index.html';
 

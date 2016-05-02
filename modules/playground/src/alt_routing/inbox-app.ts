@@ -1,4 +1,4 @@
-import {Component, Injectable} from 'angular2/core';
+import {Component, Injectable} from '@angular/core';
 import {
   Routes,
   Route,
@@ -10,10 +10,10 @@ import {
   Tree,
 } from 'angular2/alt_router';
 import * as db from './data';
-import {Location} from 'angular2/platform/common';
-import {PromiseWrapper} from 'angular2/src/facade/async';
-import {isPresent, DateWrapper} from 'angular2/src/facade/lang';
-import {PromiseCompleter} from 'angular2/src/facade/promise';
+import {Location} from '@angular/common';
+import {PromiseWrapper} from '@angular/core/src/facade/async';
+import {isPresent, DateWrapper} from '@angular/core/src/facade/lang';
+import {PromiseCompleter} from '@angular/core/src/facade/promise';
 
 class InboxRecord {
   id: string = '';

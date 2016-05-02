@@ -1,4 +1,4 @@
-import * as testUtil from '@angular/testing/src/e2e_util';
+import * as testUtil from '@angular/platform-browser/testing_e2e';
 
 var fs = require('fs');
 var sourceMap = require('source-map');

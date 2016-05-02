@@ -2,9 +2,8 @@ import {Component, Injectable} from '@angular/core';
 import {RouterLink, RouteConfig, Router, Route, RouterOutlet, RouteParams} from '@angular/router';
 import * as db from './data';
 import {Location} from '@angular/common';
-import {PromiseWrapper} from '@angular/facade';
-import {isPresent, DateWrapper} from '@angular/facade';
-import {PromiseCompleter} from '@angular/facade';
+import {PromiseWrapper, PromiseCompleter} from '@angular/core/src/facade/async';
+import {isPresent, DateWrapper} from '@angular/core/src/facade/lang';
 
 class InboxRecord {
   id: string = '';

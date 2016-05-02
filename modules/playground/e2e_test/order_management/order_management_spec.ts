@@ -1,4 +1,4 @@
-import {verifyNoBrowserErrors} from '@angular/testing/src/e2e_util';
+import {verifyNoBrowserErrors} from '@angular/platform-browser/testing_e2e';
 
 describe('Order Management CRUD', function() {
   var URL = 'playground/src/order_management/index.html';
