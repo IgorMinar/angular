@@ -30,6 +30,7 @@ declare var System: any;
           '@angular/http': '/packages-dist/http/http.umd.js',
           '@angular/upgrade': '/packages-dist/upgrade/upgrade.umd.js',
           '@angular/router': '/packages-dist/router/router.umd.js',
+          '@angular/router-deprecated': '/packages-dist/router-deprecated/router-deprecated.umd.js',
           '@angular/core/src/facade': '/all/@angular/core/src/facade',
           'rxjs': location.pathname.replace(/index\.html$/, '') + 'rxjs'
         },
