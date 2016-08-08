@@ -59,11 +59,11 @@ var upgradeCount: number = 0;
  * ### Example
  *
  * ```
- * var adapter = new UpgradeAdapter();
+ * var adapter = new UpgradeAdapter(forwardRef(() => MyNg2Module));
  * var module = angular.module('myExample', []);
- * module.directive('ng2', adapter.downgradeNg2Component(Ng2));
+ * module.directive('ng2Comp', adapter.downgradeNg2Component(Ng2));
  *
- * module.directive('ng1', function() {
+ * module.directive('ng1Hello', function() {
  *   return {
  *      scope: { title: '=' },
  *      template: 'ng1[Hello {{title}}!](<span ng-transclude></span>)'
@@ -72,20 +72,28 @@ var upgradeCount: number = 0;
  *
  *
  * @Component({
- *   selector: 'ng2',
+ *   selector: 'ng2-comp',
  *   inputs: ['name'],
- *   template: 'ng2[<ng1 [title]="name">transclude</ng1>](<ng-content></ng-content>)',
- *   directives: [adapter.upgradeNg1Component('ng1')]
+ *   template: 'ng2[<ng1-hello [title]="name">transclude</ng1-hello>](<ng-content></ng-content>)',
+ *   directives:
  * })
- * class Ng2 {
+ * class Ng2Component {
  * }
  *
- * document.body.innerHTML = '<ng2 name="World">project</ng2>';
+ * @NgModule({
+ *   declarations: [Ng2Component, adapter.upgradeNg1Component('ng1Hello')],
+ *   imports: [BrowserModule]
+ * })
+ * class MyNg2Module {}
+ *
+ *
+ * document.body.innerHTML = '<ng2-comp name="World">project</ng2-comp>';
  *
  * adapter.bootstrap(document.body, ['myExample']).ready(function() {
  *   expect(document.body.textContent).toEqual(
  *       "ng2[ng1[Hello World!](transclude)](project)");
  * });
+ *
  * ```
  *
  * @experimental
@@ -144,7 +152,7 @@ export class UpgradeAdapter {
    * ### Example
    *
    * ```
-   * var adapter = new UpgradeAdapter();
+   * var adapter = new UpgradeAdapter(forwardRef(() => MyNg2Module));
    * var module = angular.module('myExample', []);
    * module.directive('greet', adapter.downgradeNg2Component(Greeter));
    *
@@ -156,6 +164,12 @@ export class UpgradeAdapter {
    *   @Input() salutation: string;
    *   @Input() name: string;
    * }
+   *
+   * @NgModule({
+   *   declarations: [Greeter],
+   *   imports: [BrowserModule]
+   * })
+   * class MyNg2Module {}
    *
    * document.body.innerHTML =
    *   'ng1 template: <greet salutation="Hello" [name]="world">text</greet>';
@@ -216,7 +230,7 @@ export class UpgradeAdapter {
    * ### Example
    *
    * ```
-   * var adapter = new UpgradeAdapter();
+   * var adapter = new UpgradeAdapter(forwardRef(() => MyNg2Module));
    * var module = angular.module('myExample', []);
    *
    * module.directive('greet', function() {
@@ -231,10 +245,15 @@ export class UpgradeAdapter {
    * @Component({
    *   selector: 'ng2',
    *   template: 'ng2 template: <greet salutation="Hello" [name]="world">text</greet>'
-   *   directives: [adapter.upgradeNg1Component('greet')]
    * })
    * class Ng2 {
    * }
+   *
+   * @NgModule({
+   *   declarations: [Ng2, adapter.upgradeNg1Component('greet')],
+   *   imports: [BrowserModule]
+   * })
+   * class MyNg2Module {}
    *
    * document.body.innerHTML = '<ng2></ng2>';
    *
@@ -277,11 +296,16 @@ export class UpgradeAdapter {
    * @Component({
    *   selector: 'ng2',
    *   inputs: ['name'],
-   *   template: 'ng2[<ng1 [title]="name">transclude</ng1>](<ng-content></ng-content>)',
-   *   directives: [adapter.upgradeNg1Component('ng1')]
+   *   template: 'ng2[<ng1 [title]="name">transclude</ng1>](<ng-content></ng-content>)'
    * })
    * class Ng2 {
    * }
+   *
+   * @NgModule({
+   *   declarations: [Ng2, adapter.upgradeNg1Component('ng1')],
+   *   imports: [BrowserModule]
+   * })
+   * class MyNg2Module {}
    *
    * document.body.innerHTML = '<ng2 name="World">project</ng2>';
    *
