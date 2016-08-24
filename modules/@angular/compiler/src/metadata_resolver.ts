@@ -8,11 +8,11 @@
 
 import {AnimationAnimateMetadata, AnimationEntryMetadata, AnimationGroupMetadata, AnimationKeyframesSequenceMetadata, AnimationMetadata, AnimationStateDeclarationMetadata, AnimationStateMetadata, AnimationStateTransitionMetadata, AnimationStyleMetadata, AnimationWithStepsMetadata, AttributeMetadata, ChangeDetectionStrategy, ComponentMetadata, HostMetadata, InjectMetadata, Injectable, ModuleWithProviders, OptionalMetadata, Provider, QueryMetadata, SchemaMetadata, SelfMetadata, SkipSelfMetadata, Type, ViewQueryMetadata, resolveForwardRef} from '@angular/core';
 
-import {LIFECYCLE_HOOKS_VALUES, ReflectorReader, reflector} from '../core_private';
 import {StringMapWrapper} from '../src/facade/collection';
 
 import {assertArrayOfStrings, assertInterpolationSymbols} from './assertions';
 import * as cpl from './compile_metadata';
+import {LIFECYCLE_HOOKS_VALUES, ReflectorReader, reflector} from './core_private';
 import {DirectiveResolver} from './directive_resolver';
 import {isArray, isBlank, isPresent, isString, stringify} from './facade/lang';
 import {Identifiers, resolveIdentifierToken} from './identifiers';

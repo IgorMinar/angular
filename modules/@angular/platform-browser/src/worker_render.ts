@@ -8,11 +8,10 @@
 
 import {ClassProvider, ErrorHandler, ExistingProvider, FactoryProvider, Injectable, Injector, NgZone, OpaqueToken, PLATFORM_INITIALIZER, PlatformRef, Provider, RootRenderer, Testability, TypeProvider, ValueProvider, createPlatformFactory, isDevMode, platformCore} from '@angular/core';
 
-import {wtfInit} from '../core_private';
-
 import {BROWSER_SANITIZATION_PROVIDERS} from './browser';
 import {BrowserDomAdapter} from './browser/browser_adapter';
 import {BrowserGetTestability} from './browser/testability';
+import {wtfInit} from './core_private';
 import {AnimationDriver} from './dom/animation_driver';
 import {getDOM} from './dom/dom_adapter';
 import {DomRootRenderer, DomRootRenderer_} from './dom/dom_renderer';

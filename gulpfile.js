@@ -102,9 +102,10 @@ gulp.task('lint', ['format:enforce', 'tools:build'], () => {
     .pipe(tslint({
       tslint: require('tslint').default,
       configuration: tslintConfig,
-      rulesDirectory: 'dist/tools/tslint'
+      rulesDirectory: 'dist/tools/tslint',
+      formatter: 'prose'
     }))
-    .pipe(tslint.report('prose', {emitError: true}));
+    .pipe(tslint.report({emitError: true}));
 });
 
 gulp.task('tools:build', (done) => { tsc('tools/', done); });

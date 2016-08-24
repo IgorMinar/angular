@@ -8,7 +8,7 @@
 
 import {AnimationPlayer} from '@angular/core';
 
-import {AnimationKeyframe, AnimationStyles, NoOpAnimationPlayer} from '../../core_private';
+import {AnimationKeyframe, AnimationStyles, NoOpAnimationPlayer} from '../core_private';
 
 class _NoOpAnimationDriver implements AnimationDriver {
   animate(

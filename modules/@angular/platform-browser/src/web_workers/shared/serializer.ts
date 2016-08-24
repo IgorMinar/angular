@@ -8,7 +8,7 @@
 
 import {Injectable, RenderComponentType, Type, ViewEncapsulation} from '@angular/core';
 
-import {VIEW_ENCAPSULATION_VALUES} from '../../../core_private';
+import {VIEW_ENCAPSULATION_VALUES} from '../../core_private';
 import {Map, MapWrapper, StringMapWrapper} from '../../facade/collection';
 import {isArray, isPresent, serializeEnum} from '../../facade/lang';
 import {RenderStore} from './render_store';

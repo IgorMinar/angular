@@ -9,9 +9,9 @@
 var parse5 = require('parse5/index');
 
 import {ListWrapper, StringMapWrapper} from '../src/facade/collection';
-import {DomAdapter, setRootDomAdapter} from '../platform_browser_private';
+import {DomAdapter, setRootDomAdapter} from '../testing/platform_browser_private';
 import {isPresent, isBlank, global, setValueOnPath, DateWrapper} from '../src/facade/lang';
-import {SelectorMatcher, CssSelector} from '../compiler_private';
+import {SelectorMatcher, CssSelector} from './compiler_private';
 import {Type} from '@angular/core';
 import {ResourceLoader} from '@angular/compiler';
 

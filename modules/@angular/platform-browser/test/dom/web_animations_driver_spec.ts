@@ -9,7 +9,7 @@
 import {beforeEach, beforeEachProviders, ddescribe, describe, expect, iit, inject, it, xdescribe, xit} from '@angular/core/testing/testing_internal';
 import {el} from '@angular/platform-browser/testing/browser_util';
 
-import {AnimationKeyframe, AnimationStyles} from '../../core_private';
+import {AnimationKeyframe, AnimationStyles} from '../../src/core_private';
 import {DomAnimatePlayer} from '../../src/dom/dom_animate_player';
 import {WebAnimationsDriver} from '../../src/dom/web_animations_driver';
 import {WebAnimationsPlayer} from '../../src/dom/web_animations_player';

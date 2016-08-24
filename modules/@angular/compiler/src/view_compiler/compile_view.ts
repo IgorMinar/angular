@@ -6,7 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {ViewType} from '../../core_private';
 import {CompiledAnimationTriggerResult} from '../animation/animation_compiler';
 import {CompileDirectiveMetadata, CompileIdentifierMetadata, CompilePipeMetadata, CompileTokenMetadata} from '../compile_metadata';
 import {CompilerConfig} from '../config';
@@ -16,6 +15,7 @@ import {Identifiers, resolveIdentifier} from '../identifiers';
 import * as o from '../output/output_ast';
 import {createDiTokenExpression} from '../util';
 
+import {ViewType} from './../core_private';
 import {CompileBinding} from './compile_binding';
 import {CompileElement, CompileNode} from './compile_element';
 import {CompileMethod} from './compile_method';

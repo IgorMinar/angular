@@ -7,9 +7,10 @@
  */
 
 import {Compiler, ComponentFactory, Injectable, Injector, ModuleWithComponentFactories, NgModuleFactory, OptionalMetadata, Provider, SchemaMetadata, SkipSelfMetadata, Type} from '@angular/core';
-import {ComponentStillLoadingError} from '../core_private';
+
 import {CompileDirectiveMetadata, CompileIdentifierMetadata, CompileNgModuleMetadata, CompilePipeMetadata, ProviderMeta, createHostComponentMeta} from './compile_metadata';
 import {CompilerConfig} from './config';
+import {ComponentStillLoadingError} from './core_private';
 import {DirectiveNormalizer} from './directive_normalizer';
 import {isBlank, stringify} from './facade/lang';
 import {CompileMetadataResolver} from './metadata_resolver';

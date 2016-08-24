@@ -8,13 +8,12 @@
 
 import {Inject, Injectable, OpaqueToken, Optional, SchemaMetadata, SecurityContext} from '@angular/core';
 
-import {Console, MAX_INTERPOLATION_VALUES} from '../../core_private';
 import {CompileDirectiveMetadata, CompilePipeMetadata, CompileTokenMetadata, removeIdentifierDuplicates} from '../compile_metadata';
 import {AST, ASTWithSource, BindingPipe, EmptyExpr, Interpolation, ParserError, RecursiveAstVisitor, TemplateBinding} from '../expression_parser/ast';
 import {Parser} from '../expression_parser/parser';
 import {ListWrapper, SetWrapper, StringMapWrapper} from '../facade/collection';
 import {isBlank, isPresent, isString} from '../facade/lang';
-import {HtmlParser} from '../i18n/html_parser';
+import {I18NHtmlParser} from '../i18n/i18n_html_parser';
 import {Identifiers, identifierToken, resolveIdentifierToken} from '../identifiers';
 import * as html from '../ml_parser/ast';
 import {ParseTreeResult} from '../ml_parser/html_parser';
@@ -28,6 +27,7 @@ import {CssSelector, SelectorMatcher} from '../selector';
 import {isStyleUrlResolvable} from '../style_url_resolver';
 import {splitAtColon} from '../util';
 
+import {Console, MAX_INTERPOLATION_VALUES} from './../core_private';
 import {AttrAst, BoundDirectivePropertyAst, BoundElementPropertyAst, BoundEventAst, BoundTextAst, DirectiveAst, ElementAst, EmbeddedTemplateAst, NgContentAst, PropertyBindingType, ReferenceAst, TemplateAst, TemplateAstVisitor, TextAst, VariableAst, templateVisitAll} from './template_ast';
 import {PreparsedElementType, preparseElement} from './template_preparser';
 
@@ -93,7 +93,7 @@ export class TemplateParseResult {
 export class TemplateParser {
   constructor(
       private _exprParser: Parser, private _schemaRegistry: ElementSchemaRegistry,
-      private _htmlParser: HtmlParser, private _console: Console,
+      private _htmlParser: I18NHtmlParser, private _console: Console,
       @Optional() @Inject(TEMPLATE_TRANSFORMS) public transforms: TemplateAstVisitor[]) {}
 
   parse(

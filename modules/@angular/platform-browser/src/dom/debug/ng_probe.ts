@@ -8,7 +8,7 @@
 
 import {ApplicationRef, DebugNode, NgZone, Optional, Provider, RootRenderer, getDebugNode, isDevMode} from '@angular/core';
 
-import {DebugDomRootRenderer} from '../../../core_private';
+import {DebugDomRootRenderer} from '../../core_private';
 import {StringMapWrapper} from '../../facade/collection';
 import {getDOM} from '../dom_adapter';
 import {DomRootRenderer} from '../dom_renderer';
@@ -60,6 +60,8 @@ function _ngProbeTokensToMap(tokens: NgProbeToken[]): {[name: string]: any} {
 
 /**
  * Providers which support debugging Angular applications (e.g. via `ng.probe`).
+ *
+ * @experimental
  */
 export const ELEMENT_PROBE_PROVIDERS: Provider[] = [{
   provide: RootRenderer,

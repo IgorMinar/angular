@@ -8,7 +8,7 @@
 
 import {ChangeDetectionStrategy, SchemaMetadata, Type, ViewEncapsulation} from '@angular/core';
 
-import {LifecycleHooks, reflector} from '../core_private';
+import {LifecycleHooks, reflector} from './core_private';
 
 import {ListWrapper, MapWrapper, StringMapWrapper} from './facade/collection';
 import {isBlank, isPresent, isStringMap, normalizeBlank, normalizeBool} from './facade/lang';

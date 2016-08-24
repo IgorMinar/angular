@@ -8,7 +8,6 @@
 
 import {ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 
-import {ChangeDetectorStatus, ViewType, isDefaultChangeDetectionStrategy} from '../../core_private';
 import {AnimationCompiler} from '../animation/animation_compiler';
 import {CompileDirectiveMetadata, CompileIdentifierMetadata, CompileTokenMetadata, CompileTypeMetadata} from '../compile_metadata';
 import {ListWrapper, SetWrapper, StringMapWrapper} from '../facade/collection';
@@ -18,6 +17,7 @@ import * as o from '../output/output_ast';
 import {AttrAst, BoundDirectivePropertyAst, BoundElementPropertyAst, BoundEventAst, BoundTextAst, DirectiveAst, ElementAst, EmbeddedTemplateAst, NgContentAst, ProviderAst, ReferenceAst, TemplateAst, TemplateAstVisitor, TextAst, VariableAst, templateVisitAll} from '../template_parser/template_ast';
 import {createDiTokenExpression} from '../util';
 
+import {ChangeDetectorStatus, ViewType, isDefaultChangeDetectionStrategy} from './../core_private';
 import {CompileElement, CompileNode} from './compile_element';
 import {CompileView} from './compile_view';
 import {ChangeDetectorStatusEnum, DetectChangesVars, InjectMethodVars, ViewConstructorVars, ViewEncapsulationEnum, ViewProperties, ViewTypeEnum} from './constants';

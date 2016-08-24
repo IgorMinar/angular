@@ -6,50 +6,49 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {__compiler_private__ as _c} from '@angular/compiler';
+import {__compiler_private__ as _} from '@angular/compiler';
 
-export type AssetUrl = _c.AssetUrl;
-export var AssetUrl: typeof _c.AssetUrl = _c.AssetUrl;
+export type AssetUrl = typeof _._AssetUrl;
+export var AssetUrl: typeof _.AssetUrl = _.AssetUrl;
 
-export type ImportGenerator = _c.ImportGenerator;
-export var ImportGenerator: typeof _c.ImportGenerator = _c.ImportGenerator;
+export type ImportGenerator = typeof _._ImportGenerator;
+export var ImportGenerator: typeof _.ImportGenerator = _.ImportGenerator;
 
-export type CompileMetadataResolver = _c.CompileMetadataResolver;
-export var CompileMetadataResolver: typeof _c.CompileMetadataResolver = _c.CompileMetadataResolver;
+export type CompileMetadataResolver = typeof _._CompileMetadataResolver;
+export var CompileMetadataResolver: typeof _.CompileMetadataResolver = _.CompileMetadataResolver;
 
-export type HtmlParser = _c.HtmlParser;
-export var HtmlParser: typeof _c.HtmlParser = _c.HtmlParser;
+export type HtmlParser = typeof _._HtmlParser;
+export var HtmlParser: typeof _.HtmlParser = _.HtmlParser;
 
-export type ParseError = _c.ParseError;
-export var ParseError: typeof _c.ParseError = _c.ParseError;
+export type ParseError = typeof _._ParseError;
+export var ParseError: typeof _.ParseError = _.ParseError;
 
-export type InterpolationConfig = _c.InterpolationConfig;
-export var InterpolationConfig: typeof _c.InterpolationConfig = _c.InterpolationConfig;
+export type InterpolationConfig = typeof _._InterpolationConfig;
+export var InterpolationConfig: typeof _.InterpolationConfig = _.InterpolationConfig;
 
-export type DirectiveNormalizer = _c.DirectiveNormalizer;
-export var DirectiveNormalizer: typeof _c.DirectiveNormalizer = _c.DirectiveNormalizer;
+export type DirectiveNormalizer = typeof _._DirectiveNormalizer;
+export var DirectiveNormalizer: typeof _.DirectiveNormalizer = _.DirectiveNormalizer;
 
-export type Lexer = _c.Lexer;
-export var Lexer: typeof _c.Lexer = _c.Lexer;
+export type Lexer = typeof _._Lexer;
+export var Lexer: typeof _.Lexer = _.Lexer;
 
-export type Parser = _c.Parser;
-export var Parser: typeof _c.Parser = _c.Parser;
+export type Parser = typeof _._Parser;
+export var Parser: typeof _.Parser = _.Parser;
 
-export type TemplateParser = _c.TemplateParser;
-export var TemplateParser: typeof _c.TemplateParser = _c.TemplateParser;
+export type TemplateParser = typeof _._TemplateParser;
+export var TemplateParser: typeof _.TemplateParser = _.TemplateParser;
 
-export type DomElementSchemaRegistry = _c.DomElementSchemaRegistry;
-export var DomElementSchemaRegistry: typeof _c.DomElementSchemaRegistry =
-    _c.DomElementSchemaRegistry;
+export type DomElementSchemaRegistry = typeof _._DomElementSchemaRegistry;
+export var DomElementSchemaRegistry: typeof _.DomElementSchemaRegistry = _.DomElementSchemaRegistry;
 
-export type StyleCompiler = _c.StyleCompiler;
-export var StyleCompiler: typeof _c.StyleCompiler = _c.StyleCompiler;
+export type StyleCompiler = typeof _._StyleCompiler;
+export var StyleCompiler: typeof _.StyleCompiler = _.StyleCompiler;
 
-export type ViewCompiler = _c.ViewCompiler;
-export var ViewCompiler: typeof _c.ViewCompiler = _c.ViewCompiler;
+export type ViewCompiler = typeof _._ViewCompiler;
+export var ViewCompiler: typeof _.ViewCompiler = _.ViewCompiler;
 
-export type NgModuleCompiler = _c.NgModuleCompiler;
-export var NgModuleCompiler: typeof _c.NgModuleCompiler = _c.NgModuleCompiler;
+export type NgModuleCompiler = typeof _._NgModuleCompiler;
+export var NgModuleCompiler: typeof _.NgModuleCompiler = _.NgModuleCompiler;
 
-export type TypeScriptEmitter = _c.TypeScriptEmitter;
-export var TypeScriptEmitter: typeof _c.TypeScriptEmitter = _c.TypeScriptEmitter;
+export type TypeScriptEmitter = typeof _._TypeScriptEmitter;
+export var TypeScriptEmitter: typeof _.TypeScriptEmitter = _.TypeScriptEmitter;

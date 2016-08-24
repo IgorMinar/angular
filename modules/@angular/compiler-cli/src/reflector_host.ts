@@ -59,6 +59,7 @@ export class ReflectorHost implements StaticReflectorHost, ImportGenerator {
   getCanonicalFileName(fileName: string): string { return fileName; }
 
   protected resolve(m: string, containingFile: string) {
+    m = m.replace(EXT, '');
     const resolved =
         ts.resolveModuleName(m, containingFile.replace(/\\/g, '/'), this.options, this.context)
             .resolvedModule;

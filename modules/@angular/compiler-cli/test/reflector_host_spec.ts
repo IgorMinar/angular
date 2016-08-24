@@ -13,7 +13,7 @@ import {ReflectorHost} from '../src/reflector_host';
 
 import {Directory, Entry, MockCompilerHost, MockContext} from './mocks';
 
-describe('reflector_host', () => {
+ddescribe('reflector_host', () => {
   var context: MockContext;
   var host: ts.CompilerHost;
   var program: ts.Program;

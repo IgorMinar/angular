@@ -13,6 +13,7 @@ System.config({
   map: {
     'benchpress/*': 'dist/js/dev/es5/benchpress/*.js',
     '@angular': 'dist/all/@angular',
+    '@angular/core': 'dist/all/@angular/core',
     'rxjs': 'node_modules/rxjs',
     'parse5/index': 'dist/all/empty.js',
     '@angular/platform-server/src/parse5_adapter': 'dist/all/empty.js',
@@ -20,11 +21,23 @@ System.config({
     'angular2/src/alt_router/router_testing_providers': 'dist/all/angular2/src/alt_router/router_testing_providers.js'
   },
   packages: {
+    '@angular/core/testing': {
+      main: 'index.js',
+      defaultExtension: 'js'
+    },
     '@angular/core': {
       main: 'index.js',
       defaultExtension: 'js'
     },
+    '@angular/compiler/testing': {
+      main: 'index.js',
+      defaultExtension: 'js'
+    },
     '@angular/compiler': {
+      main: 'index.js',
+      defaultExtension: 'js'
+    },
+    '@angular/common/testing': {
       main: 'index.js',
       defaultExtension: 'js'
     },
@@ -41,7 +54,15 @@ System.config({
       main: 'index.js',
       defaultExtension: 'js'
     },
+    '@angular/router/testing': {
+      main: 'index.js',
+      defaultExtension: 'js'
+    },
     '@angular/router': {
+      main: 'index.js',
+      defaultExtension: 'js'
+    },
+    '@angular/http/testing': {
       main: 'index.js',
       defaultExtension: 'js'
     },
@@ -53,11 +74,23 @@ System.config({
       main: 'index.js',
       defaultExtension: 'js'
     },
+    '@angular/platform-browser/testing': {
+      main: 'index.js',
+      defaultExtension: 'js'
+    },
     '@angular/platform-browser': {
       main: 'index.js',
       defaultExtension: 'js'
     },
+    '@angular/platform-browser-dynamic/testing': {
+      main: 'index.js',
+      defaultExtension: 'js'
+    },
     '@angular/platform-browser-dynamic': {
+      main: 'index.js',
+      defaultExtension: 'js'
+    },
+    '@angular/platform-server/testing': {
       main: 'index.js',
       defaultExtension: 'js'
     },

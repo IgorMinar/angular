@@ -5,11 +5,11 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import {AnimationOutput} from '../../core_private';
 import {ListWrapper} from '../facade/collection';
 import {identifierToken} from '../identifiers';
 import {AttrAst, BoundDirectivePropertyAst, BoundElementPropertyAst, BoundEventAst, BoundTextAst, DirectiveAst, ElementAst, EmbeddedTemplateAst, NgContentAst, ReferenceAst, TemplateAst, TemplateAstVisitor, TextAst, VariableAst, templateVisitAll} from '../template_parser/template_ast';
 
+import {AnimationOutput} from './../core_private';
 import {CompileElement, CompileNode} from './compile_element';
 import {CompileView} from './compile_view';
 import {CompileElementAnimationOutput, CompileEventListener, bindAnimationOutputs, bindDirectiveOutputs, bindRenderOutputs, collectEventListeners} from './event_binder';
