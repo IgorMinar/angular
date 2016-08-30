@@ -2,7 +2,7 @@
   "name": "@angular/platform-server",
   "version": "0.0.0-PLACEHOLDER",
   "description": "Angular 2 platform-server",
-  "main": "platform-server.umd.js",
+  "main": "bundles/platform-server.umd.js",
   "module": "index.js",
   "typings": "index.d.ts",
   "author": "angular",

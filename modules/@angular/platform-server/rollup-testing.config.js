@@ -1,7 +1,7 @@
 
 export default {
   entry: '../../../dist/packages-dist/platform-server/testing/index.js',
-  dest: '../../../dist/packages-dist/platform-server/testing.js',
+  dest: '../../../dist/packages-dist/platform-server/bundles/platform-server-testing.umd.js',
   format: 'umd',
   moduleName: 'ng.platformServer.testing',
   globals: {

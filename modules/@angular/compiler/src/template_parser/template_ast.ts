@@ -13,7 +13,7 @@ import {AST} from '../expression_parser/ast';
 import {isPresent} from '../facade/lang';
 import {ParseSourceSpan} from '../parse_util';
 
-import {LifecycleHooks} from './../core_private';
+import {LifecycleHooks} from '../private_import_core';
 
 
 

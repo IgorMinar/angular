@@ -11,7 +11,7 @@ import {platformCoreDynamic} from '@angular/compiler';
 import {ClassProvider, ExistingProvider, FactoryProvider, NgModule, PLATFORM_INITIALIZER, PlatformRef, Provider, TypeProvider, ValueProvider, createPlatformFactory, platformCore} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
-import {wtfInit} from './core_private';
+import {wtfInit} from './private_import_core';
 
 import {Parse5DomAdapter} from './parse5_adapter';
 

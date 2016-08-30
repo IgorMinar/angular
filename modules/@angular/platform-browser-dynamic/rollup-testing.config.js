@@ -1,6 +1,6 @@
 export default {
   entry: '../../../dist/packages-dist/platform-browser-dynamic/testing/index.js',
-  dest: '../../../dist/packages-dist/platform-browser-dynamic/testing.js',
+  dest: '../../../dist/packages-dist/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.js',
   format: 'umd',
   moduleName: 'ng.platformBrowserDynamic.testing',
   globals: {

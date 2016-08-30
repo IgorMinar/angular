@@ -1,7 +1,7 @@
 
 export default {
   entry: '../../../dist/packages-dist/forms/index.js',
-  dest: '../../../dist/packages-dist/forms/forms.umd.js',
+  dest: '../../../dist/packages-dist/forms/bundles/forms.umd.js',
   format: 'umd',
   moduleName: 'ng.forms',
   globals: {

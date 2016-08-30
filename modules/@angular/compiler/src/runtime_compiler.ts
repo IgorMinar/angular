@@ -10,7 +10,7 @@ import {Compiler, ComponentFactory, Injectable, Injector, ModuleWithComponentFac
 
 import {CompileDirectiveMetadata, CompileIdentifierMetadata, CompileNgModuleMetadata, CompilePipeMetadata, ProviderMeta, createHostComponentMeta} from './compile_metadata';
 import {CompilerConfig} from './config';
-import {ComponentStillLoadingError} from './core_private';
+import {ComponentStillLoadingError} from './private_import_core';
 import {DirectiveNormalizer} from './directive_normalizer';
 import {isBlank, stringify} from './facade/lang';
 import {CompileMetadataResolver} from './metadata_resolver';

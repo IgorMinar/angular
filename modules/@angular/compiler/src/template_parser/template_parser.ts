@@ -27,7 +27,7 @@ import {CssSelector, SelectorMatcher} from '../selector';
 import {isStyleUrlResolvable} from '../style_url_resolver';
 import {splitAtColon} from '../util';
 
-import {Console, MAX_INTERPOLATION_VALUES} from './../core_private';
+import {Console, MAX_INTERPOLATION_VALUES} from '../private_import_core';
 import {AttrAst, BoundDirectivePropertyAst, BoundElementPropertyAst, BoundEventAst, BoundTextAst, DirectiveAst, ElementAst, EmbeddedTemplateAst, NgContentAst, PropertyBindingType, ReferenceAst, TemplateAst, TemplateAstVisitor, TextAst, VariableAst, templateVisitAll} from './template_ast';
 import {PreparsedElementType, preparseElement} from './template_preparser';
 

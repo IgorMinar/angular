@@ -8,7 +8,7 @@
 
 import {ApplicationRef, DebugNode, NgZone, Optional, Provider, RootRenderer, getDebugNode, isDevMode} from '@angular/core';
 
-import {DebugDomRootRenderer} from '../../core_private';
+import {DebugDomRootRenderer} from '../../private_import_core';
 import {StringMapWrapper} from '../../facade/collection';
 import {getDOM} from '../dom_adapter';
 import {DomRootRenderer} from '../dom_renderer';

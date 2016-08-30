@@ -1,7 +1,7 @@
 
 export default {
   entry: '../../../dist/packages-dist/platform-server/index.js',
-  dest: '../../../dist/packages-dist/platform-server/platform-server.umd.js',
+  dest: '../../../dist/packages-dist/platform-server/bundles/platform-server.umd.js',
   format: 'umd',
   moduleName: 'ng.platformServer',
   globals: {

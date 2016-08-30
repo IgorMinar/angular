@@ -14,7 +14,7 @@ import {AnimationAst, AnimationEntryAst, AnimationGroupAst, AnimationKeyframeAst
 import {parseAnimationEntry} from '../../src/animation/animation_parser';
 import {StringMapWrapper} from '../../src/facade/collection';
 import {CompileMetadataResolver} from '../../src/metadata_resolver';
-import {FILL_STYLE_FLAG, flattenStyles} from '../core_private';
+import {FILL_STYLE_FLAG, flattenStyles} from '../private_import_core';
 
 export function main() {
   describe('parseAnimationEntry', () => {

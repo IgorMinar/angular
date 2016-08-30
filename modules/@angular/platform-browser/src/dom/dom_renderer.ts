@@ -8,7 +8,7 @@
 
 import {Inject, Injectable, OpaqueToken, RenderComponentType, Renderer, RootRenderer, ViewEncapsulation} from '@angular/core';
 
-import {AnimationKeyframe, AnimationPlayer, AnimationStyles, RenderDebugInfo} from '../core_private';
+import {AnimationKeyframe, AnimationPlayer, AnimationStyles, RenderDebugInfo} from '../private_import_core';
 import {StringMapWrapper} from '../facade/collection';
 import {Json, StringWrapper, isArray, isBlank, isPresent, isString, stringify} from '../facade/lang';
 

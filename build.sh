@@ -51,6 +51,7 @@ TSCONFIG=./modules/tsconfig.json
 echo "====== (all)COMPILING: \$(npm bin)/tsc -p ${TSCONFIG} ====="
 # compile ts code
 TSC="node --max-old-space-size=3000 dist/tools/@angular/tsc-wrapped/src/main"
+UGLIFYJS=`pwd`/node_modules/.bin/uglifyjs
 $TSC -p modules/tsconfig.json
 
 rm -rf ./dist/packages-dist
@@ -68,11 +69,13 @@ for PACKAGE in \
   upgrade \
   compiler-cli
 do
-  SRCDIR=./modules/@angular/${PACKAGE}
-  DESTDIR=./dist/packages-dist/${PACKAGE}
-  UMD_ES6_PATH=${DESTDIR}/esm/${PACKAGE}.umd.js
+  PWD=`pwd`
+  SRCDIR=${PWD}/modules/@angular/${PACKAGE}
+  DESTDIR=${PWD}/dist/packages-dist/${PACKAGE}
   UMD_ES5_PATH=${DESTDIR}/bundles/${PACKAGE}.umd.js
+  UMD_TESTING_ES5_PATH=${DESTDIR}/bundles/${PACKAGE}-testing.umd.js
   UMD_ES5_MIN_PATH=${DESTDIR}/bundles/${PACKAGE}.umd.min.js
+  LICENSE_BANNER=${PWD}/modules/@angular/license-banner.txt
 
   echo "======      COMPILING: ${TSC} -p ${SRCDIR}/tsconfig.json        ====="
   $TSC -p ${SRCDIR}/tsconfig.json
@@ -105,18 +108,25 @@ do
       cd  ${SRCDIR}
       echo "======         Rollup ${PACKAGE} index"
       ../../../node_modules/.bin/rollup -c rollup.config.js
+      cat ${LICENSE_BANNER} > ${UMD_ES5_PATH}.tmp
+      cat ${UMD_ES5_PATH} >> ${UMD_ES5_PATH}.tmp
+      mv ${UMD_ES5_PATH}.tmp ${UMD_ES5_PATH}
+      $UGLIFYJS -c --screw-ie8 -o ${UMD_ES5_MIN_PATH} ${UMD_ES5_PATH}
+      cat ${LICENSE_BANNER} > ${UMD_ES5_MIN_PATH}.tmp
+      cat ${UMD_ES5_MIN_PATH} >> ${UMD_ES5_MIN_PATH}.tmp
+      mv ${UMD_ES5_MIN_PATH}.tmp ${UMD_ES5_MIN_PATH}
+
+
       if [[ -e rollup-testing.config.js ]]; then
         echo "======         Rollup ${PACKAGE} testing"
         ../../../node_modules/.bin/rollup -c rollup-testing.config.js
+        echo "{\"main\": \"../bundles/${PACKAGE}-testing.umd.js\"}" > ${DESTDIR}/testing/package.json
+        cat ${LICENSE_BANNER} > ${UMD_TESTING_ES5_PATH}.tmp
+        cat ${UMD_TESTING_ES5_PATH} >> ${UMD_TESTING_ES5_PATH}.tmp
+        mv ${UMD_TESTING_ES5_PATH}.tmp ${UMD_TESTING_ES5_PATH}
       fi
     ) 2>&1 | grep -v "as external dependency"
 
-
-    cat ./modules/@angular/license-banner.txt > ${UMD_ES5_PATH}.tmp
-    cat ${UMD_ES5_PATH} >> ${UMD_ES5_PATH}.tmp
-    mv ${UMD_ES5_PATH}.tmp ${UMD_ES5_PATH}
-
-    $(npm bin)/uglifyjs -c --screw-ie8 -o ${UMD_ES5_MIN_PATH} ${UMD_ES5_PATH}
   fi
 done
 

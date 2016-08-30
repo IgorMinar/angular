@@ -13,7 +13,7 @@ import {Identifiers, identifierToken, resolveIdentifier} from '../identifiers';
 import * as o from '../output/output_ast';
 import {BoundEventAst, DirectiveAst} from '../template_parser/template_ast';
 
-import {AnimationOutput} from './../core_private';
+import {AnimationOutput} from '../private_import_core';
 import {CompileBinding} from './compile_binding';
 import {CompileElement} from './compile_element';
 import {CompileMethod} from './compile_method';

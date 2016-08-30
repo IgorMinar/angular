@@ -12,7 +12,7 @@ import {StringMapWrapper} from '../src/facade/collection';
 
 import {assertArrayOfStrings, assertInterpolationSymbols} from './assertions';
 import * as cpl from './compile_metadata';
-import {LIFECYCLE_HOOKS_VALUES, ReflectorReader, reflector} from './core_private';
+import {LIFECYCLE_HOOKS_VALUES, ReflectorReader, reflector} from './private_import_core';
 import {DirectiveResolver} from './directive_resolver';
 import {isArray, isBlank, isPresent, isString, stringify} from './facade/lang';
 import {Identifiers, resolveIdentifierToken} from './identifiers';

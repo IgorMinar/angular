@@ -11,7 +11,7 @@ import {TestBed, inject} from '@angular/core/testing';
 
 import {MockDirectiveResolver} from '../testing/index';
 
-import {ViewMetadata} from './core_private';
+import {ViewMetadata} from './private_import_core';
 
 export function main() {
   describe('MockDirectiveResolver', () => {

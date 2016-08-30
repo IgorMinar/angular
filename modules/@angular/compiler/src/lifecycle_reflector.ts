@@ -8,7 +8,7 @@
 
 import {AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, DoCheck, OnChanges, OnDestroy, OnInit, Type} from '@angular/core';
 
-import {LifecycleHooks, reflector} from './core_private';
+import {LifecycleHooks, reflector} from './private_import_core';
 
 import {MapWrapper} from './facade/collection';
 

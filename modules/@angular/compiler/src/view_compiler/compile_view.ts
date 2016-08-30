@@ -15,7 +15,7 @@ import {Identifiers, resolveIdentifier} from '../identifiers';
 import * as o from '../output/output_ast';
 import {createDiTokenExpression} from '../util';
 
-import {ViewType} from './../core_private';
+import {ViewType} from '../private_import_core';
 import {CompileBinding} from './compile_binding';
 import {CompileElement, CompileNode} from './compile_element';
 import {CompileMethod} from './compile_method';

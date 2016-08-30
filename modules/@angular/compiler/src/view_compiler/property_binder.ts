@@ -15,7 +15,7 @@ import * as o from '../output/output_ast';
 import {BoundElementPropertyAst, BoundTextAst, DirectiveAst, PropertyBindingType} from '../template_parser/template_ast';
 import {camelCaseToDashCase} from '../util';
 
-import {EMPTY_STATE as EMPTY_ANIMATION_STATE, LifecycleHooks, isDefaultChangeDetectionStrategy} from './../core_private';
+import {EMPTY_STATE as EMPTY_ANIMATION_STATE, LifecycleHooks, isDefaultChangeDetectionStrategy} from '../private_import_core';
 import {CompileBinding} from './compile_binding';
 import {CompileElement, CompileNode} from './compile_element';
 import {CompileMethod} from './compile_method';

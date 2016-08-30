@@ -8,7 +8,7 @@
 
 import {AUTO_STYLE} from '@angular/core';
 
-import {AnimationPlayer} from '../core_private';
+import {AnimationPlayer} from '../private_import_core';
 import {StringMapWrapper} from '../facade/collection';
 import {isPresent} from '../facade/lang';
 

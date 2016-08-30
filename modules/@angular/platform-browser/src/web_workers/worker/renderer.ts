@@ -8,7 +8,7 @@
 
 import {Injectable, RenderComponentType, Renderer, RootRenderer, ViewEncapsulation} from '@angular/core';
 
-import {AnimationKeyframe, AnimationPlayer, AnimationStyles, RenderDebugInfo} from '../../core_private';
+import {AnimationKeyframe, AnimationPlayer, AnimationStyles, RenderDebugInfo} from '../../private_import_core';
 import {ListWrapper} from '../../facade/collection';
 import {isBlank, isPresent} from '../../facade/lang';
 import {ClientMessageBrokerFactory, FnArg, UiArguments} from '../shared/client_message_broker';

@@ -8,7 +8,7 @@
 
 import {AUTO_STYLE} from '@angular/core';
 
-import {AnimationKeyframe, AnimationPlayer, AnimationStyles, NoOpAnimationPlayer} from '../core_private';
+import {AnimationKeyframe, AnimationPlayer, AnimationStyles, NoOpAnimationPlayer} from '../private_import_core';
 import {StringMapWrapper} from '../facade/collection';
 import {StringWrapper, isNumber, isPresent} from '../facade/lang';
 import {AnimationDriver} from './animation_driver';

@@ -12,7 +12,7 @@ import {TestComponentRenderer} from '@angular/core/testing';
 import {BrowserTestingModule} from '@angular/platform-browser/testing';
 
 import {DOMTestComponentRenderer} from './dom_test_component_renderer';
-import {INTERNAL_BROWSER_DYNAMIC_PLATFORM_PROVIDERS} from './platform_browser_testing_private';
+import {INTERNAL_BROWSER_DYNAMIC_PLATFORM_PROVIDERS} from './private_import_platform-browser-dynamic';
 
 export * from './private_export_testing'
 

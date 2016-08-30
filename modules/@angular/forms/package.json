@@ -2,7 +2,7 @@
   "name": "@angular/forms",
   "version": "0.0.0-PLACEHOLDER",
   "description": "Angular 2 forms",
-  "main": "forms.umd.js",
+  "main": "bundles/forms.umd.js",
   "module": "index.js",
   "typings": "index.d.ts",
   "author": "angular",

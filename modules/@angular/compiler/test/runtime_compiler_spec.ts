@@ -15,7 +15,7 @@ import {expect} from '@angular/platform-browser/testing/matchers';
 import {stringify} from '../src/facade/lang';
 import {MockDirectiveResolver} from '../testing/index';
 
-import {ViewMetadata} from './core_private';
+import {ViewMetadata} from './private_import_core';
 import {SpyResourceLoader} from './spies';
 
 @Component({selector: 'child-cmp'})

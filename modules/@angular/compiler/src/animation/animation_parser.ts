@@ -12,7 +12,7 @@ import {NumberWrapper, isArray, isBlank, isPresent, isString, isStringMap} from 
 import {Math} from '../facade/math';
 import {ParseError} from '../parse_util';
 
-import {ANY_STATE, AnimationOutput, FILL_STYLE_FLAG} from './../core_private';
+import {ANY_STATE, AnimationOutput, FILL_STYLE_FLAG} from '../private_import_core';
 import {AnimationAst, AnimationEntryAst, AnimationGroupAst, AnimationKeyframeAst, AnimationSequenceAst, AnimationStateDeclarationAst, AnimationStateTransitionAst, AnimationStateTransitionExpression, AnimationStepAst, AnimationStylesAst, AnimationWithStepsAst} from './animation_ast';
 import {StylesCollection} from './styles_collection';
 

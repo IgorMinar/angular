@@ -10,7 +10,7 @@ import {CompileDirectiveMetadata, CompilePipeMetadata} from '../compile_metadata
 import * as o from '../output/output_ast';
 import {DirectiveAst, ProviderAst} from '../template_parser/template_ast';
 
-import {LifecycleHooks} from './../core_private';
+import {LifecycleHooks} from '../private_import_core';
 import {CompileElement} from './compile_element';
 import {CompileView} from './compile_view';
 import {DetectChangesVars} from './constants';

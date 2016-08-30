@@ -1,7 +1,7 @@
 
 export default {
   entry: '../../../dist/packages-dist/compiler/testing/index.js',
-  dest: '../../../dist/packages-dist/compiler/testing.js',
+  dest: '../../../dist/packages-dist/compiler/bundles/compiler-testing.umd.js',
   format: 'umd',
   moduleName: 'ng.compiler.testing',
   globals: {

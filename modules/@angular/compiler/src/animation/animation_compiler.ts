@@ -13,7 +13,7 @@ import {Identifiers, resolveIdentifier} from '../identifiers';
 import * as o from '../output/output_ast';
 import * as t from '../template_parser/template_ast';
 
-import {ANY_STATE, AnimationOutput, DEFAULT_STATE, EMPTY_STATE} from './../core_private';
+import {ANY_STATE, AnimationOutput, DEFAULT_STATE, EMPTY_STATE} from '../private_import_core';
 import {AnimationAst, AnimationAstVisitor, AnimationEntryAst, AnimationGroupAst, AnimationKeyframeAst, AnimationSequenceAst, AnimationStateAst, AnimationStateDeclarationAst, AnimationStateTransitionAst, AnimationStepAst, AnimationStylesAst} from './animation_ast';
 import {AnimationParseError, ParsedAnimationResult, parseAnimationEntry, parseAnimationOutputName} from './animation_parser';
 
