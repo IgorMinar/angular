@@ -21,13 +21,13 @@ import {expandNodes} from '../ml_parser/icu_ast_expander';
 import {InterpolationConfig} from '../ml_parser/interpolation_config';
 import {mergeNsAndName, splitNsName} from '../ml_parser/tags';
 import {ParseError, ParseErrorLevel, ParseSourceSpan} from '../parse_util';
+import {Console, MAX_INTERPOLATION_VALUES} from '../private_import_core';
 import {ProviderElementContext, ProviderViewContext} from '../provider_analyzer';
 import {ElementSchemaRegistry} from '../schema/element_schema_registry';
 import {CssSelector, SelectorMatcher} from '../selector';
 import {isStyleUrlResolvable} from '../style_url_resolver';
 import {splitAtColon} from '../util';
 
-import {Console, MAX_INTERPOLATION_VALUES} from '../private_import_core';
 import {AttrAst, BoundDirectivePropertyAst, BoundElementPropertyAst, BoundEventAst, BoundTextAst, DirectiveAst, ElementAst, EmbeddedTemplateAst, NgContentAst, PropertyBindingType, ReferenceAst, TemplateAst, TemplateAstVisitor, TextAst, VariableAst, templateVisitAll} from './template_ast';
 import {PreparsedElementType, preparseElement} from './template_preparser';
 

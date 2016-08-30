@@ -7,11 +7,10 @@
  */
 
 import {NgZone} from '@angular/core';
-import {__platform_browser_private__} from '@angular/platform-browser';
+
 import {ListWrapper} from './facade/collection';
 import {RegExp, StringWrapper, global, isPresent, isString} from './facade/lang';
-
-const {getDOM} = __platform_browser_private__;
+import {getDOM} from './private_import_platform-browser';
 
 export class BrowserDetection {
   private _overrideUa: string;

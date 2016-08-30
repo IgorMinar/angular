@@ -9,7 +9,7 @@
 
 import {document, window} from './facade/browser';
 import {NumberWrapper, isBlank} from './facade/lang';
-import {BrowserDomAdapter} from './platform_browser_private';
+import {BrowserDomAdapter} from './private_import_platform-browser';
 
 var DOM = new BrowserDomAdapter();
 

@@ -15,7 +15,6 @@ import {WebAnimationsDriver} from '../src/dom/web_animations_driver';
 import {BrowserDomAdapter} from './browser/browser_adapter';
 import {BrowserPlatformLocation} from './browser/location/browser_platform_location';
 import {BrowserGetTestability} from './browser/testability';
-import {wtfInit} from './private_import_core';
 import {ELEMENT_PROBE_PROVIDERS} from './dom/debug/ng_probe';
 import {getDOM} from './dom/dom_adapter';
 import {DomRootRenderer, DomRootRenderer_} from './dom/dom_renderer';
@@ -51,7 +50,6 @@ export const platformBrowser =
 
 export function initDomAdapter() {
   BrowserDomAdapter.makeCurrent();
-  wtfInit();
   BrowserGetTestability.init();
 }
 

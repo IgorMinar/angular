@@ -11,9 +11,9 @@ import {ListWrapper, StringMapWrapper} from '../facade/collection';
 import {StringWrapper, isBlank, isPresent} from '../facade/lang';
 import {Identifiers, identifierToken, resolveIdentifier} from '../identifiers';
 import * as o from '../output/output_ast';
+import {AnimationOutput} from '../private_import_core';
 import {BoundEventAst, DirectiveAst} from '../template_parser/template_ast';
 
-import {AnimationOutput} from '../private_import_core';
 import {CompileBinding} from './compile_binding';
 import {CompileElement} from './compile_element';
 import {CompileMethod} from './compile_method';

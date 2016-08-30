@@ -14,10 +14,10 @@ import {ListWrapper, SetWrapper, StringMapWrapper} from '../facade/collection';
 import {StringWrapper, isPresent} from '../facade/lang';
 import {Identifiers, identifierToken, resolveIdentifier, resolveIdentifierToken} from '../identifiers';
 import * as o from '../output/output_ast';
+import {ChangeDetectorStatus, ViewType, isDefaultChangeDetectionStrategy} from '../private_import_core';
 import {AttrAst, BoundDirectivePropertyAst, BoundElementPropertyAst, BoundEventAst, BoundTextAst, DirectiveAst, ElementAst, EmbeddedTemplateAst, NgContentAst, ProviderAst, ReferenceAst, TemplateAst, TemplateAstVisitor, TextAst, VariableAst, templateVisitAll} from '../template_parser/template_ast';
 import {createDiTokenExpression} from '../util';
 
-import {ChangeDetectorStatus, ViewType, isDefaultChangeDetectionStrategy} from '../private_import_core';
 import {CompileElement, CompileNode} from './compile_element';
 import {CompileView} from './compile_view';
 import {ChangeDetectorStatusEnum, DetectChangesVars, InjectMethodVars, ViewConstructorVars, ViewEncapsulationEnum, ViewProperties, ViewTypeEnum} from './constants';

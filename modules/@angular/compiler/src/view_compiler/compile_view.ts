@@ -13,9 +13,9 @@ import {ListWrapper, MapWrapper} from '../facade/collection';
 import {isBlank, isPresent} from '../facade/lang';
 import {Identifiers, resolveIdentifier} from '../identifiers';
 import * as o from '../output/output_ast';
+import {ViewType} from '../private_import_core';
 import {createDiTokenExpression} from '../util';
 
-import {ViewType} from '../private_import_core';
 import {CompileBinding} from './compile_binding';
 import {CompileElement, CompileNode} from './compile_element';
 import {CompileMethod} from './compile_method';

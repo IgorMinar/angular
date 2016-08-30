@@ -6,8 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {BaseError} from './errors';
-
 export interface BrowserNodeGlobal {
   Object: typeof Object;
   Array: typeof Array;

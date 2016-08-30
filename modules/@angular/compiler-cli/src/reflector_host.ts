@@ -11,7 +11,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as ts from 'typescript';
 
-import {AssetUrl, ImportGenerator} from './compiler_private';
+import {AssetUrl, ImportGenerator} from './private_import_compiler';
 import {StaticReflectorHost, StaticSymbol} from './static_reflector';
 
 const EXT = /(\.ts|\.d\.ts|\.js|\.jsx|\.tsx)$/;

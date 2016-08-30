@@ -16,9 +16,9 @@ import {AngularCompilerOptions, NgcCliOptions} from '@angular/tsc-wrapped';
 import * as path from 'path';
 import * as ts from 'typescript';
 
-import {CompileMetadataResolver, DirectiveNormalizer, DomElementSchemaRegistry, HtmlParser, Lexer, NgModuleCompiler, Parser, StyleCompiler, TemplateParser, TypeScriptEmitter, ViewCompiler} from './compiler_private';
-import {Console} from './private_import_core';
 import {PathMappedReflectorHost} from './path_mapped_reflector_host';
+import {CompileMetadataResolver, DirectiveNormalizer, DomElementSchemaRegistry, HtmlParser, Lexer, NgModuleCompiler, Parser, StyleCompiler, TemplateParser, TypeScriptEmitter, ViewCompiler} from './private_import_compiler';
+import {Console} from './private_import_core';
 import {ReflectorHost, ReflectorHostContext} from './reflector_host';
 import {StaticAndDynamicReflectionCapabilities} from './static_reflection_capabilities';
 import {StaticReflector, StaticSymbol} from './static_reflector';

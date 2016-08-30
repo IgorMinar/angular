@@ -21,7 +21,7 @@ import {ComponentMetadata, NgModuleMetadata, ViewEncapsulation} from '@angular/c
 import * as path from 'path';
 import * as ts from 'typescript';
 import * as tsc from '@angular/tsc-wrapped';
-import {CompileMetadataResolver, DirectiveNormalizer, DomElementSchemaRegistry, HtmlParser, Lexer, NgModuleCompiler, Parser, StyleCompiler, TemplateParser, TypeScriptEmitter, ViewCompiler, ParseError} from './compiler_private';
+import {CompileMetadataResolver, DirectiveNormalizer, DomElementSchemaRegistry, HtmlParser, Lexer, NgModuleCompiler, Parser, StyleCompiler, TemplateParser, TypeScriptEmitter, ViewCompiler, ParseError} from './private_import_compiler';
 import {Console} from './private_import_core';
 import {ReflectorHost, ReflectorHostContext} from './reflector_host';
 import {StaticAndDynamicReflectionCapabilities} from './static_reflection_capabilities';

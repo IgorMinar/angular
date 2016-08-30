@@ -10,5 +10,4 @@ import {__core_private__ as r} from '@angular/core';
 
 export var reflector: typeof r.reflector = r.reflector;
 export var ReflectionCapabilities: typeof r.ReflectionCapabilities = r.ReflectionCapabilities;
-export var wtfInit: typeof r.wtfInit = r.wtfInit;
 export var Console: typeof r.Console = r.Console;

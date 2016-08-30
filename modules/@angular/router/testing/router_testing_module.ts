@@ -11,7 +11,7 @@ import {MockLocationStrategy, SpyLocation} from '@angular/common/testing';
 import {Compiler, Injectable, Injector, ModuleWithProviders, NgModule, NgModuleFactory, NgModuleFactoryLoader} from '@angular/core';
 import {Route, Router, RouterModule, RouterOutletMap, Routes, UrlSerializer, provideRoutes} from '@angular/router';
 
-import {ROUTER_PROVIDERS, ROUTES, flatten} from './router_private';
+import {ROUTER_PROVIDERS, ROUTES, flatten} from './private_import_router';
 
 /**
  * A spy for {@link NgModuleFactoryLoader} that allows tests to simulate the loading of ng module

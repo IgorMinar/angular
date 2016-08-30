@@ -12,7 +12,7 @@ cd ../..
 $(npm bin)/tsc -v
 $(npm bin)/tsc -p tools
 cp tools/@angular/tsc-wrapped/package.json dist/tools/@angular/tsc-wrapped
-../../build.sh
+./build.sh
 $(npm bin)/tsc -p modules/benchpress
 
 echo 'travis_fold:end:BUILD'

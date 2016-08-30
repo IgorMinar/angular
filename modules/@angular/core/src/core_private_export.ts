@@ -30,7 +30,6 @@ import * as view_type from './linker/view_type';
 import * as view_utils from './linker/view_utils';
 import * as lifecycle_hooks from './metadata/lifecycle_hooks';
 import * as metadata_view from './metadata/view';
-import * as wtf_init from './profile/wtf_init';
 import * as reflection from './reflection/reflection';
 // We need to import this name separately from the above wildcard, because this symbol is exposed.
 import {Reflector} from './reflection/reflection'; // tslint:disable-line
@@ -79,7 +78,6 @@ export var __core_private__: {
   _ValueUnwrapper?: change_detection_util.ValueUnwrapper,
   RenderDebugInfo: typeof api.RenderDebugInfo, _RenderDebugInfo?: api.RenderDebugInfo,
   TemplateRef_: typeof template_ref.TemplateRef_, _TemplateRef_?: template_ref.TemplateRef_<any>,
-  wtfInit: typeof wtf_init.wtfInit,
   ReflectionCapabilities: typeof reflection_capabilities.ReflectionCapabilities,
   _ReflectionCapabilities?: reflection_capabilities.ReflectionCapabilities,
   makeDecorator: typeof decorators.makeDecorator,
@@ -148,7 +146,6 @@ export var __core_private__: {
   ValueUnwrapper: change_detection_util.ValueUnwrapper,
   RenderDebugInfo: api.RenderDebugInfo,
   TemplateRef_: template_ref.TemplateRef_,
-  wtfInit: wtf_init.wtfInit,
   ReflectionCapabilities: reflection_capabilities.ReflectionCapabilities,
   makeDecorator: decorators.makeDecorator,
   DebugDomRootRenderer: debug.DebugDomRootRenderer,

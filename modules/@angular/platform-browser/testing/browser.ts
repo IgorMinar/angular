@@ -9,7 +9,7 @@ import {APP_ID, ClassProvider, ExistingProvider, FactoryProvider, NgModule, NgZo
 import {AnimationDriver, BrowserModule} from '@angular/platform-browser';
 
 import {BrowserDetection, createNgZone} from './browser_util';
-import {BrowserDomAdapter, ELEMENT_PROBE_PROVIDERS} from './platform_browser_private';
+import {BrowserDomAdapter, ELEMENT_PROBE_PROVIDERS} from './private_import_platform-browser';
 
 function initBrowserTests() {
   BrowserDomAdapter.makeCurrent();

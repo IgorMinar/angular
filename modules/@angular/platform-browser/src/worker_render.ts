@@ -11,7 +11,6 @@ import {ClassProvider, ErrorHandler, ExistingProvider, FactoryProvider, Injectab
 import {BROWSER_SANITIZATION_PROVIDERS} from './browser';
 import {BrowserDomAdapter} from './browser/browser_adapter';
 import {BrowserGetTestability} from './browser/testability';
-import {wtfInit} from './private_import_core';
 import {AnimationDriver} from './dom/animation_driver';
 import {getDOM} from './dom/dom_adapter';
 import {DomRootRenderer, DomRootRenderer_} from './dom/dom_renderer';
@@ -120,7 +119,6 @@ function messageBusFactory(instance: WebWorkerInstance): MessageBus {
 function initWebWorkerRenderPlatform(injector: Injector): () => void {
   return () => {
     BrowserDomAdapter.makeCurrent();
-    wtfInit();
     BrowserGetTestability.init();
     var scriptUri: string;
     try {

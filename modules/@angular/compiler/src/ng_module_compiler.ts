@@ -9,12 +9,12 @@
 import {Injectable} from '@angular/core';
 
 import {CompileDiDependencyMetadata, CompileIdentifierMetadata, CompileNgModuleMetadata, CompileProviderMetadata, CompileTokenMetadata} from './compile_metadata';
-import {LifecycleHooks} from './private_import_core';
 import {isBlank, isPresent} from './facade/lang';
 import {Identifiers, identifierToken, resolveIdentifier, resolveIdentifierToken} from './identifiers';
 import * as o from './output/output_ast';
 import {convertValueToOutputAst} from './output/value_util';
 import {ParseLocation, ParseSourceFile, ParseSourceSpan} from './parse_util';
+import {LifecycleHooks} from './private_import_core';
 import {NgModuleProviderAnalyzer} from './provider_analyzer';
 import {ProviderAst} from './template_parser/template_ast';
 import {createDiTokenExpression} from './util';

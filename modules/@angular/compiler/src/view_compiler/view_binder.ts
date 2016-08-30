@@ -7,9 +7,9 @@
  */
 import {ListWrapper} from '../facade/collection';
 import {identifierToken} from '../identifiers';
+import {AnimationOutput} from '../private_import_core';
 import {AttrAst, BoundDirectivePropertyAst, BoundElementPropertyAst, BoundEventAst, BoundTextAst, DirectiveAst, ElementAst, EmbeddedTemplateAst, NgContentAst, ReferenceAst, TemplateAst, TemplateAstVisitor, TextAst, VariableAst, templateVisitAll} from '../template_parser/template_ast';
 
-import {AnimationOutput} from '../private_import_core';
 import {CompileElement, CompileNode} from './compile_element';
 import {CompileView} from './compile_view';
 import {CompileElementAnimationOutput, CompileEventListener, bindAnimationOutputs, bindDirectiveOutputs, bindRenderOutputs, collectEventListeners} from './event_binder';

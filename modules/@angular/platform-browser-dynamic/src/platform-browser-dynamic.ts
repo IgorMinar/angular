@@ -10,8 +10,8 @@ import {ResourceLoader, platformCoreDynamic} from '@angular/compiler';
 import {ApplicationRef, COMPILER_OPTIONS, CUSTOM_ELEMENTS_SCHEMA, ClassProvider, CompilerFactory, CompilerOptions, ComponentRef, ExistingProvider, FactoryProvider, NgModule, PlatformRef, Provider, Type, TypeProvider, ValueProvider, createPlatformFactory} from '@angular/core';
 import {BrowserModule, WORKER_SCRIPT, WorkerAppModule, platformWorkerUi} from '@angular/platform-browser';
 
-import {Console} from './private_import_core';
 import {INTERNAL_BROWSER_DYNAMIC_PLATFORM_PROVIDERS} from './platform_providers';
+import {Console} from './private_import_core';
 import {CachedResourceLoader} from './resource_loader/resource_loader_cache';
 import {ResourceLoaderImpl} from './resource_loader/resource_loader_impl';
 

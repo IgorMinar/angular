@@ -10,7 +10,6 @@ import {Compiler, ComponentFactory, Injectable, Injector, ModuleWithComponentFac
 
 import {CompileDirectiveMetadata, CompileIdentifierMetadata, CompileNgModuleMetadata, CompilePipeMetadata, ProviderMeta, createHostComponentMeta} from './compile_metadata';
 import {CompilerConfig} from './config';
-import {ComponentStillLoadingError} from './private_import_core';
 import {DirectiveNormalizer} from './directive_normalizer';
 import {isBlank, stringify} from './facade/lang';
 import {CompileMetadataResolver} from './metadata_resolver';
@@ -18,6 +17,7 @@ import {NgModuleCompiler} from './ng_module_compiler';
 import * as ir from './output/output_ast';
 import {interpretStatements} from './output/output_interpreter';
 import {jitStatements} from './output/output_jit';
+import {ComponentStillLoadingError} from './private_import_core';
 import {CompiledStylesheet, StyleCompiler} from './style_compiler';
 import {TemplateParser} from './template_parser/template_parser';
 import {SyncAsyncResult} from './util';

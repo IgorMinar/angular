@@ -12,13 +12,13 @@ import {StringMapWrapper} from '../src/facade/collection';
 
 import {assertArrayOfStrings, assertInterpolationSymbols} from './assertions';
 import * as cpl from './compile_metadata';
-import {LIFECYCLE_HOOKS_VALUES, ReflectorReader, reflector} from './private_import_core';
 import {DirectiveResolver} from './directive_resolver';
 import {isArray, isBlank, isPresent, isString, stringify} from './facade/lang';
 import {Identifiers, resolveIdentifierToken} from './identifiers';
 import {hasLifecycleHook} from './lifecycle_reflector';
 import {NgModuleResolver} from './ng_module_resolver';
 import {PipeResolver} from './pipe_resolver';
+import {LIFECYCLE_HOOKS_VALUES, ReflectorReader, reflector} from './private_import_core';
 import {ElementSchemaRegistry} from './schema/element_schema_registry';
 import {getUrlScheme} from './url_resolver';
 import {MODULE_SUFFIX, ValueTransformer, sanitizeIdentifier, visitValue} from './util';
