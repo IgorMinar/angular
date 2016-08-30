@@ -13,7 +13,7 @@ PKGS=(
   rxjs
   @types/{node,jasmine}
   jasmine
-  webpack@beta
+  webpack@2.1.0-beta.21
   @angular2-material/{core,button}
 )
 

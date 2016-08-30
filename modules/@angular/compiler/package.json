@@ -1,7 +1,7 @@
 {
   "name": "@angular/compiler",
   "version": "0.0.0-PLACEHOLDER",
-  "description": "Angular2 - core",
+  "description": "Angular2 - compiler",
   "main": "compiler.umd.js",
   "module": "index.js",
   "typings": "index.d.ts",

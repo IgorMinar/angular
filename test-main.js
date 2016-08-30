@@ -13,7 +13,6 @@ System.config({
   map: {
     'benchpress/*': 'dist/js/dev/es5/benchpress/*.js',
     '@angular': 'dist/all/@angular',
-    '@angular/core': 'dist/all/@angular/core',
     'rxjs': 'node_modules/rxjs',
     'parse5/index': 'dist/all/empty.js',
     '@angular/platform-server/src/parse5_adapter': 'dist/all/empty.js',

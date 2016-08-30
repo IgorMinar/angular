@@ -31,6 +31,7 @@ export function main(
 
     // HACK: patch the realpath to solve symlink issue here:
     // https://github.com/Microsoft/TypeScript/issues/9552
+    // todo(misko): remove once facade symlinks are removed
     host.realpath = (path) => path;
 
     const program = ts.createProgram(parsed.fileNames, parsed.options, host);

@@ -103,20 +103,20 @@ do
 
     (
       cd  ${SRCDIR}
-      echo "======         Rolup ${PACKAGE} index"
+      echo "======         Rollup ${PACKAGE} index"
       ../../../node_modules/.bin/rollup -c rollup.config.js
       if [[ -e rollup-testing.config.js ]]; then
-        echo "======         Rolup ${PACKAGE} testing"
+        echo "======         Rollup ${PACKAGE} testing"
         ../../../node_modules/.bin/rollup -c rollup-testing.config.js
       fi
     ) 2>&1 | grep -v "as external dependency"
 
 
-    # cat ./modules/@angular/license-banner.txt > ${UMD_ES5_PATH}.tmp
-    # cat ${UMD_ES5_PATH} >> ${UMD_ES5_PATH}.tmp
-    # mv ${UMD_ES5_PATH}.tmp ${UMD_ES5_PATH}
+    cat ./modules/@angular/license-banner.txt > ${UMD_ES5_PATH}.tmp
+    cat ${UMD_ES5_PATH} >> ${UMD_ES5_PATH}.tmp
+    mv ${UMD_ES5_PATH}.tmp ${UMD_ES5_PATH}
 
-    # $(npm bin)/uglifyjs -c --screw-ie8 -o ${UMD_ES5_MIN_PATH} ${UMD_ES5_PATH}
+    $(npm bin)/uglifyjs -c --screw-ie8 -o ${UMD_ES5_MIN_PATH} ${UMD_ES5_PATH}
   fi
 done
 
