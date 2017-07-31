@@ -1,13 +1,27 @@
 import {
-  Component, ComponentFactory, ComponentFactoryResolver, ComponentRef,
-  DoCheck, ElementRef, EventEmitter, Injector, Input, OnDestroy,
-  Output, ViewEncapsulation
+  Component,
+  ComponentFactory,
+  ComponentFactoryResolver,
+  ComponentRef,
+  DoCheck,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  Injector,
+  Input,
+  NgModuleFactoryLoader,
+  OnDestroy,
+  Output,
+  Type,
 } from '@angular/core';
-
-import { EmbeddedComponents } from 'app/embedded/embedded.module';
-import { DocumentContents } from 'app/documents/document.service';
 import { Title } from '@angular/platform-browser';
+
+import { DocumentContents } from 'app/documents/document.service';
+import { embeddedSelectorsToken } from 'app/shared/embedded-selectors';
+import { Logger } from 'app/shared/logger.service';
 import { TocService } from 'app/shared/toc.service';
+
+declare const System;
 
 interface EmbeddedComponentFactory {
   contentPropertyName: string;
@@ -26,68 +40,72 @@ const initialDocViewerContent = initialDocViewerElement ? initialDocViewerElemen
 })
 export class DocViewerComponent implements DoCheck, OnDestroy {
 
-  private embeddedComponents: ComponentRef<any>[] = [];
+  private embeddedComponentInstances: ComponentRef<any>[] = [];
   private embeddedComponentFactories: Map<string, EmbeddedComponentFactory> = new Map();
+  private embeddedComponentsReady: Promise<void>;
   private hostElement: HTMLElement;
 
   @Output()
   docRendered = new EventEmitter();
 
   constructor(
-    componentFactoryResolver: ComponentFactoryResolver,
     elementRef: ElementRef,
-    embeddedComponents: EmbeddedComponents,
+    @Inject(embeddedSelectorsToken) private embeddedSelectors: string[],
     private injector: Injector,
+    private logger: Logger,
     private titleService: Title,
     private tocService: TocService
     ) {
     this.hostElement = elementRef.nativeElement;
     // Security: the initialDocViewerContent comes from the prerendered DOM and is considered to be secure
     this.hostElement.innerHTML = initialDocViewerContent;
-
-    for (const component of embeddedComponents.components) {
-      const factory = componentFactoryResolver.resolveComponentFactory(component);
-      const selector = factory.selector;
-      const contentPropertyName = this.selectorToContentPropertyName(selector);
-      this.embeddedComponentFactories.set(selector, { contentPropertyName, factory });
-    }
   }
 
   @Input()
   set doc(newDoc: DocumentContents) {
     this.ngOnDestroy();
     if (newDoc) {
-      this.build(newDoc);
-      this.docRendered.emit();
+      this.build(newDoc)
+          .then(() => this.docRendered.emit())
+          .catch(err => this.logger.error(`[DocViewer]: Error preparing document '${newDoc.id}'.`, err));
     }
   }
 
   /**
    * Add doc content to host element and build it out with embedded components
    */
-  private build(doc: DocumentContents) {
+  private build(doc: DocumentContents): Promise<void> {
+    let promise = Promise.resolve();
 
     // security: the doc.content is always authored by the documentation team
     // and is considered to be safe
     this.hostElement.innerHTML = doc.contents || '';
 
-    if (!doc.contents) { return; }
+    if (doc.contents) {
+      this.addTitleAndToc(doc.id);
 
-    this.addTitleAndToc(doc.id);
-
-    // TODO(i): why can't I use for-of? why doesn't typescript like Map#value() iterators?
-    this.embeddedComponentFactories.forEach(({ contentPropertyName, factory }, selector) => {
-      const embeddedComponentElements = this.hostElement.querySelectorAll(selector);
-
-      // cast due to https://github.com/Microsoft/TypeScript/issues/4947
-      for (const element of embeddedComponentElements as any as HTMLElement[]){
-        // hack: preserve the current element content because the factory will empty it out
-        // security: the source of this innerHTML is always authored by the documentation team
-        // and is considered to be safe
-        element[contentPropertyName] = element.innerHTML;
-        this.embeddedComponents.push(factory.create(this.injector, [], element));
+      if (!this.embeddedComponentsReady && this.hostElement.querySelector(this.embeddedSelectors.join(','))) {
+        promise = promise.then(() => this.prepareEmbeddedComponents());
       }
-    });
+
+      promise = promise.then(() => {
+        // TODO(i): why can't I use for-of? why doesn't typescript like Map#value() iterators?
+        this.embeddedComponentFactories.forEach(({ contentPropertyName, factory }, selector) => {
+          const embeddedComponentElements = this.hostElement.querySelectorAll(selector);
+
+          // cast due to https://github.com/Microsoft/TypeScript/issues/4947
+          for (const element of embeddedComponentElements as any as HTMLElement[]){
+            // hack: preserve the current element content because the factory will empty it out
+            // security: the source of this innerHTML is always authored by the documentation team
+            // and is considered to be safe
+            element[contentPropertyName] = element.innerHTML;
+            this.embeddedComponentInstances.push(factory.create(this.injector, [], element));
+          }
+        });
+      });
+    }
+
+    return promise;
   }
 
   private addTitleAndToc(docId: string) {
@@ -107,13 +125,36 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
   }
 
   ngDoCheck() {
-    this.embeddedComponents.forEach(comp => comp.changeDetectorRef.detectChanges());
+    this.embeddedComponentInstances.forEach(comp => comp.changeDetectorRef.detectChanges());
   }
 
   ngOnDestroy() {
     // destroy these components else there will be memory leaks
-    this.embeddedComponents.forEach(comp => comp.destroy());
-    this.embeddedComponents.length = 0;
+    this.embeddedComponentInstances.forEach(comp => comp.destroy());
+    this.embeddedComponentInstances.length = 0;
+  }
+
+  private prepareEmbeddedComponents() {
+    if (!(this.embeddedComponentsReady instanceof Promise)) {
+      const ngModuleFactoryLoader: NgModuleFactoryLoader = this.injector.get(NgModuleFactoryLoader);
+
+      this.embeddedComponentsReady = ngModuleFactoryLoader
+          .load('app/embedded/embedded.module#EmbeddedModule')
+          .then(ngModuleFactory => {
+            const embeddedModuleRef = ngModuleFactory.create(this.injector);
+            const embeddedComponents: Type<any>[] = embeddedModuleRef.instance.embeddedComponents;
+            const componentFactoryResolver = embeddedModuleRef.componentFactoryResolver;
+
+            for (const component of embeddedComponents) {
+              const factory = componentFactoryResolver.resolveComponentFactory(component);
+              const selector = factory.selector;
+              const contentPropertyName = this.selectorToContentPropertyName(selector);
+              this.embeddedComponentFactories.set(selector, { contentPropertyName, factory });
+            }
+          });
+    }
+
+    return this.embeddedComponentsReady;
   }
 
   /**

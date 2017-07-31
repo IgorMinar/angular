@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ContributorService } from './contributor/contributor.service';
@@ -15,6 +15,7 @@ import { SharedModule } from 'app/shared/shared.module';
 
 // Embedded Components
 import { ApiListComponent } from './api/api-list.component';
+import { ApiService } from './api/api.service';
 import { CodeExampleComponent } from './code/code-example.component';
 import { CodeTabsComponent } from './code/code-tabs.component';
 import { ContributorListComponent } from './contributor/contributor-list.component';
@@ -23,20 +24,15 @@ import { CurrentLocationComponent } from './current-location.component';
 import { LiveExampleComponent, EmbeddedPlunkerComponent } from './live-example/live-example.component';
 import { ResourceListComponent } from './resource/resource-list.component';
 import { ResourceService } from './resource/resource.service';
-import { TocComponent } from './toc/toc.component';
 
-/** Components that can be embedded in docs
+/**
+ * Components that can be embedded in docs,
  * such as CodeExampleComponent, LiveExampleComponent,...
  */
-export const embeddedComponents: any[] = [
+export const embeddedComponents: Type<any>[] = [
   ApiListComponent, CodeExampleComponent, CodeTabsComponent, ContributorListComponent,
-  CurrentLocationComponent, LiveExampleComponent, ResourceListComponent, TocComponent
+  CurrentLocationComponent, LiveExampleComponent, ResourceListComponent
 ];
-
-/** Injectable class w/ property returning components that can be embedded in docs */
-export class EmbeddedComponents {
-  components = embeddedComponents;
-}
 
 @NgModule({
   imports: [
@@ -52,16 +48,15 @@ export class EmbeddedComponents {
     ContributorComponent,
     EmbeddedPlunkerComponent
   ],
-  exports: [
-    TocComponent
-  ],
   providers: [
+    ApiService,
     ContributorService,
     CopierService,
-    EmbeddedComponents,
     PrettyPrinter,
     ResourceService
   ],
   entryComponents: [ embeddedComponents ]
 })
-export class EmbeddedModule { }
+export class EmbeddedModule {
+  embeddedComponents = embeddedComponents;
+}

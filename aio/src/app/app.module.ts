@@ -1,20 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { InjectionToken, NgModule, NgModuleFactoryLoader, SystemJsNgModuleLoader } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
+import { ROUTES } from '@angular/router';
+
 import {
   MdButtonModule,
   MdIconModule,
   MdIconRegistry,
-  MdInputModule,
   MdProgressBarModule,
   MdSidenavModule,
-  MdTabsModule,
   MdToolbarModule,
-  Platform
 } from '@angular/material';
 
 // Temporary fix for MdSidenavModule issue:
@@ -24,11 +23,10 @@ import 'rxjs/add/operator/first';
 import { SwUpdatesModule } from 'app/sw-updates/sw-updates.module';
 
 import { AppComponent } from 'app/app.component';
-import { ApiService } from 'app/embedded/api/api.service';
 import { CustomMdIconRegistry, SVG_ICONS } from 'app/shared/custom-md-icon-registry';
 import { DocViewerComponent } from 'app/layout/doc-viewer/doc-viewer.component';
 import { DtComponent } from 'app/layout/doc-viewer/dt.component';
-import { EmbeddedModule } from 'app/embedded/embedded.module';
+import { embeddedSelectorsProvider } from 'app/shared/embedded-selectors';
 import { GaService } from 'app/shared/ga.service';
 import { Logger } from 'app/shared/logger.service';
 import { LocationService } from 'app/shared/location.service';
@@ -43,6 +41,7 @@ import { ScrollService } from 'app/shared/scroll.service';
 import { ScrollSpyService } from 'app/shared/scroll-spy.service';
 import { SearchResultsComponent } from './search/search-results/search-results.component';
 import { SearchBoxComponent } from './search/search-box/search-box.component';
+import { TocComponent } from 'app/layout/toc/toc.component';
 import { TocService } from 'app/shared/toc.service';
 
 import { SharedModule } from 'app/shared/shared.module';
@@ -72,15 +71,12 @@ export const svgIconProviders = [
 @NgModule({
   imports: [
     BrowserModule,
-    EmbeddedModule,
     HttpModule,
     BrowserAnimationsModule,
     MdButtonModule,
     MdIconModule,
-    MdInputModule,
     MdProgressBarModule,
     MdSidenavModule,
-    MdTabsModule,
     MdToolbarModule,
     SwUpdatesModule,
     SharedModule
@@ -95,10 +91,11 @@ export const svgIconProviders = [
     NavItemComponent,
     SearchResultsComponent,
     SearchBoxComponent,
+    TocComponent,
   ],
   providers: [
-    ApiService,
     DocumentService,
+    embeddedSelectorsProvider,
     GaService,
     Logger,
     Location,
@@ -106,13 +103,21 @@ export const svgIconProviders = [
     LocationService,
     { provide: MdIconRegistry, useClass: CustomMdIconRegistry },
     NavigationService,
-    Platform,
+    { provide: NgModuleFactoryLoader, useClass: SystemJsNgModuleLoader },
+    {
+      // This is currently the only way to get `@angular/cli`
+      // to split `EmbeddedModule` into a separate chunk :(
+      provide: ROUTES,
+      useValue: [{ path: '/embedded', loadChildren: 'app/embedded/embedded.module#EmbeddedModule' }],
+      multi: true
+    },
     ScrollService,
     ScrollSpyService,
     SearchService,
     svgIconProviders,
     TocService
   ],
+  entryComponents: [TocComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

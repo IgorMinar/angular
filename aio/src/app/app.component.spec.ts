@@ -24,7 +24,7 @@ import { SearchBoxComponent } from 'app/search/search-box/search-box.component';
 import { SearchResultsComponent } from 'app/search/search-results/search-results.component';
 import { SearchService } from 'app/search/search.service';
 import { SelectComponent, Option } from 'app/shared/select/select.component';
-import { TocComponent } from 'app/embedded/toc/toc.component';
+import { TocComponent } from 'app/layout/toc/toc.component';
 import { TocItem, TocService } from 'app/shared/toc.service';
 
 const sideBySideBreakPoint = 992;
