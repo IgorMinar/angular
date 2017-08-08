@@ -1,0 +1,26 @@
+@import '../core/style/variables';
+@import '../core/style/button-common';
+@import '../core/style/list-common';
+
+$mat-snack-bar-button-margin: 48px !default;
+
+.mat-simple-snackbar {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  line-height: 20px;
+}
+
+.mat-simple-snackbar-action {
+  @include mat-button-reset;
+
+  background: none;
+  color: inherit;
+  flex-shrink: 0;
+  margin-left: $mat-snack-bar-button-margin;
+
+  [dir='rtl'] & {
+    margin-right: $mat-snack-bar-button-margin;
+    margin-left: 0;
+  }
+}

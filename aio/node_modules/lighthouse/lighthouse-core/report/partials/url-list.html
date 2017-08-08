@@ -1,0 +1,16 @@
+<details class="subitem__details">
+  <summary class="subitem__detail">URLs</summary>
+  <ul class="subitem__details">
+  {{#each this}}
+    <li class="subitem__detail http-resource">
+      <span class="http-resource__url">{{this.url}}</span>
+      {{#if this.label}}
+        <span class="http-resource__protocol">({{this.label}})</span>
+      {{/if}}
+      {{#if this.code}}
+        <pre class="http-resource__code">{{this.code}}</pre>
+      {{/if}}
+    </li>
+  {{/each}}
+  </ul>
+</details>

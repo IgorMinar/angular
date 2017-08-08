@@ -1,0 +1,1 @@
+"use strict";require("../../base/base.js");'use strict';global.tr.exportTo('tr.ui.annotations',function(){function AnnotationView(viewport,annotation){}AnnotationView.prototype={draw:function(ctx){throw new Error('Not implemented');}};return{AnnotationView:AnnotationView};});

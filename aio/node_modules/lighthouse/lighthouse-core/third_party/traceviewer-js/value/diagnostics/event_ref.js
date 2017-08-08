@@ -1,0 +1,1 @@
+"use strict";require("../../base/guid.js");'use strict';global.tr.exportTo('tr.v.d',function(){class EventRef{constructor(event){this.stableId=event.stableId;this.title=event.title;this.start=event.start;this.duration=event.duration;this.end=this.start+this.duration;this.guid=tr.b.GUID.allocateSimple();}}return{EventRef:EventRef};});

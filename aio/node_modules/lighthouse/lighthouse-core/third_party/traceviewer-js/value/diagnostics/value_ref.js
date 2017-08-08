@@ -1,0 +1,1 @@
+"use strict";require("../../base/base.js");'use strict';global.tr.exportTo('tr.v.d',function(){function ValueRef(guid){this.guid=guid;}return{ValueRef:ValueRef};});

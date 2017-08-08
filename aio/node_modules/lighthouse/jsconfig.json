@@ -1,0 +1,24 @@
+{
+  "//": "to run: tsc -p ./jsconfig.json ",
+
+  "///": "good docs here: https://github.com/Microsoft/vscode-docs/blob/vnext/docs/languages/javascript.md#javascript-projects-jsconfigjson ",
+
+  "compilerOptions": {
+    "target": "ES6",
+    "noEmit": true,
+    "diagnostics": true
+  },
+  "exclude": [
+    "lighthouse-cli",
+    "node_modules",
+    "coverage",
+
+    "**/node_modules/*",
+    "**/third_party/*",
+    "**/dist/*",
+    "**/app/scripts/*",
+
+    "lighthouse-core/report/templates/*.js",
+    "lighthouse-core/closure"
+  ]
+}
