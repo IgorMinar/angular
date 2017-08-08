@@ -18,6 +18,8 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 
 const sideNavView = 'SideNav';
 
+declare const System;
+
 @Component({
   selector: 'aio-shell',
   templateUrl: './app.component.html',
@@ -106,7 +108,12 @@ export class AppComponent implements OnInit {
     private scrollService: ScrollService,
     private searchService: SearchService,
     private tocService: TocService
-  ) { }
+  ) {
+
+    System.import("./lazy").then((m) => {
+      console.log('lazy loaded!', m.datepickerLoaded());
+    });
+  }
 
   ngOnInit() {
     // Do not initialize the search on browsers that lack web worker support
