@@ -110,7 +110,8 @@ export class AppComponent implements OnInit {
     private tocService: TocService
   ) {
 
-    System.import("./lazy").then((m) => {
+    //System.import("./lazy").then((m) => {
+    System.import("../$$_gendir/app/lazy.ngfactory").then((m) => {
       console.log('lazy loaded!', m.datepickerLoaded());
     });
   }
