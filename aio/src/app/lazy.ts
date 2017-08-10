@@ -1,10 +1,6 @@
 import {NgModule, Component} from "@angular/core";
 import {foo, MdDatepicker, TransitionCheckState, MdDatepickerModule} from "@angular/material";
 
-export function datepickerLoaded() {
-  console.log("look ma, datepicker", MdDatepicker);
-  console.log("foo", foo, TransitionCheckState);
-}
 
 @Component({
   selector: 'me-lazy',
@@ -19,5 +15,9 @@ export class LazyComponent {}
 })
 export class LazyModule {
 
+  constructor() {
+    console.log("look ma, datepicker", MdDatepicker);
+    console.log("foo", foo, TransitionCheckState);
+  }
 
 }

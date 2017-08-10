@@ -139,7 +139,7 @@ export class DocViewerComponent implements DoCheck, OnDestroy {
       //const ngModuleFactoryLoader: NgModuleFactoryLoader = this.injector.get(NgModuleFactoryLoader);
 
       this.embeddedComponentsReady = System.import('../../../$$_gendir/app/embedded/embedded.module.ngfactory')
-          .then(m => m.EmbeddedModule).then(ngModuleFactory => {
+          .then(m => m.EmbeddedModuleNgFactory).then(ngModuleFactory => {
             const embeddedModuleRef = ngModuleFactory.create(this.injector);
             const embeddedComponents: Type<any>[] = embeddedModuleRef.instance.embeddedComponents;
             const componentFactoryResolver = embeddedModuleRef.componentFactoryResolver;

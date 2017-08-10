@@ -111,9 +111,9 @@ export class AppComponent implements OnInit {
   ) {
 
     //System.import("./lazy").then((m) => {
-    System.import("../$$_gendir/app/lazy.ngfactory").then((m) => {
-      console.log('lazy loaded!', m.datepickerLoaded());
-    });
+    // System.import("../$$_gendir/app/lazy.ngfactory").then((m) => {
+    //   console.log('lazy loaded!', m);
+    // });
   }
 
   ngOnInit() {
