@@ -103,14 +103,14 @@ export const svgIconProviders = [
     LocationService,
     { provide: MdIconRegistry, useClass: CustomMdIconRegistry },
     NavigationService,
-    { provide: NgModuleFactoryLoader, useClass: SystemJsNgModuleLoader },
-    {
-      // This is currently the only way to get `@angular/cli`
-      // to split `EmbeddedModule` into a separate chunk :(
-      provide: ROUTES,
-      useValue: [{ path: '/embedded', loadChildren: 'app/embedded/embedded.module#EmbeddedModule' }],
-      multi: true
-    },
+    //{ provide: NgModuleFactoryLoader, useClass: SystemJsNgModuleLoader },
+    // {
+    //   // This is currently the only way to get `@angular/cli`
+    //   // to split `EmbeddedModule` into a separate chunk :(
+    //   provide: ROUTES,
+    //   useValue: [{ path: '/embedded', loadChildren: 'app/embedded/embedded.module#EmbeddedModule' }],
+    //   multi: true
+    // },
     ScrollService,
     ScrollSpyService,
     SearchService,
