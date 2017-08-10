@@ -8015,8 +8015,8 @@ webpack-sources@^1.0.1:
     source-map "~0.5.3"
 
 webpack@webpack/webpack#feature/pure-module:
-  version "3.4.1"
-  resolved "https://codeload.github.com/webpack/webpack/tar.gz/2be928de9c7449f02cc55df526dd96ae561b5bec"
+  version "3.5.3"
+  resolved "https://codeload.github.com/webpack/webpack/tar.gz/9a3f2592d2f58cdda9c18b3e44d99f206c1aa1b0"
   dependencies:
     acorn "^5.0.0"
     acorn-dynamic-import "^2.0.0"
@@ -8043,7 +8043,7 @@ webpack@webpack/webpack#feature/pure-module:
 
 webpack@~3.4.1:
   version "3.4.1"
-  resolved "https://codeload.github.com/webpack/webpack/tar.gz/67190daa4bb3f31b359038f5ad079eb025fd41b6"
+  resolved "https://codeload.github.com/webpack/webpack/tar.gz/2be928de9c7449f02cc55df526dd96ae561b5bec"
   dependencies:
     acorn "^5.0.0"
     acorn-dynamic-import "^2.0.0"
