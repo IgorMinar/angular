@@ -21,6 +21,6 @@ ng_module(
 
 ng_package(
     name = "package",
-    srcs = [":core"],
+    deps = [":core"],
     package_json = "package.json"
 )

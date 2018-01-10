@@ -22,26 +22,18 @@ def _package_json(ctx):
 # ng_package produces package that is npm ready.
 def _ng_package_impl(ctx):
   directory = ctx.actions.declare_directory(ctx.label.name)
-  commands = "mkdir " + directory.path + " 2> /dev/null; "
-  inputs = []
-
-  # Create and copy the package.json file
-  package_json = _package_json(ctx)
-  inputs += [package_json]
-  commands += "cp " + package_json.path + " " + directory.path + "/package.json; "
-
-  # Process each flat module
-#  for entry_point in _collect_provider(ctx, AngularEntryPoint):
-#    entry_point_result = _flat_module_entry_point(ctx, directory, entry_point)
-#    commands += entry_point_result.commands
-#    inputs += entry_point_result.inputs
-
-  ctx.actions.run_shell(
-    progress_message="Angular Packaging: building npm package for %s" % ctx.label.name,
-    mnemonic="AngularPackage",
-    outputs=[directory],
-    inputs=inputs,
-    command=commands)
+  ctx.actions.run(
+    progress_message = "Angular Packaging: building npm package for %s" % ctx.label.name,
+    mnemonic = "AngularPackage",
+    outputs = [directory],
+    inputs = [ctx.file.package_json] + ctx.files.deps,
+    executable = ctx.executable._packager,
+    arguments = [
+      directory.path,
+      ctx.bin_dir.path + "/" + ctx.attr.package_json.label.package,
+      ctx.file.package_json.path
+    ],
+  )
 
   return struct(
     files = depset([directory])
@@ -88,10 +80,11 @@ def _ng_package_impl(ctx):
 ng_package = rule(
     implementation = _ng_package_impl,
     attrs = {
-      "srcs": attr.label_list(),
+      "deps": attr.label_list(),
       "package_json": attr.label(allow_single_file = FileType([".json"])),
     #  "metadata": attr.bool(default=True),
       "version": attr.string(),
+      "_packager": attr.label(default=Label("//src/packager"), executable=True, cfg="host"),
     #  "_rollup": attr.label(default=Label("//internal:rollup"), executable=True, cfg="host"),
     }
 )
