@@ -1,17 +1,31 @@
 import * as shx from 'shelljs';
 import * as path from 'path';
 
+function filter(ext: string): (path: string) => boolean {
+  return f => f.endsWith(ext) && !f.endsWith(`.ngfactory${ext}`) && !f.endsWith(`.ngsummary${ext}`);
+}
+
 function main(args: string[]): number {
-  const [out, srcdir, packageJson] = args;
+  shx.set("-e");
+  const [out, srcdir, packageJson, esm2015src] = args;
   shx.mkdir("-p", out);
   shx.cp(packageJson, path.join(out, path.basename(packageJson)));
-  const typings = shx.find("-R", srcdir).filter(f => f.endsWith(".d.ts") && !f.endsWith(".ngfactory.d.ts") && !f.endsWith(".ngsummary.d.ts"));
 
-  typings.forEach(f => {
+  const typings = shx.find("-R", srcdir);
+  typings.filter(filter(".d.ts"))
+  .forEach(f => {
     const outputPath = path.join(out, path.relative(srcdir, f));
     shx.mkdir("-p", path.dirname(outputPath));
     shx.cp(f, outputPath);
   });
+
+  const esm2015 = shx.find("-R", esm2015src);
+  esm2015.filter(filter(".js")).forEach(f => {
+    const outputPath = path.join(out, "esm2015", path.relative(esm2015src, f));
+    shx.mkdir("-p", path.dirname(outputPath));
+    shx.cp(f, outputPath);
+  });
+
   return 0;
 }
 

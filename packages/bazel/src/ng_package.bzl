@@ -4,6 +4,7 @@
 # found in the LICENSE file at https://angular.io/license
 """Implementation of the ng_package rule.
 """
+load("@build_bazel_rules_nodejs//:internal/collect_es6_sources.bzl", "collect_es6_sources")
 
 # Produce the package.json file
 def _package_json(ctx):
@@ -26,12 +27,13 @@ def _ng_package_impl(ctx):
     progress_message = "Angular Packaging: building npm package for %s" % ctx.label.name,
     mnemonic = "AngularPackage",
     outputs = [directory],
-    inputs = [ctx.file.package_json] + ctx.files.deps,
+    inputs = [ctx.file.package_json] + ctx.files.deps + collect_es6_sources(ctx).to_list(),
     executable = ctx.executable._packager,
     arguments = [
       directory.path,
       ctx.bin_dir.path + "/" + ctx.attr.package_json.label.package,
-      ctx.file.package_json.path
+      ctx.file.package_json.path,
+      "/".join([ctx.bin_dir.path, ctx.label.package, ctx.label.name + ".es6", ctx.attr.package_json.label.package])
     ],
   )
 
