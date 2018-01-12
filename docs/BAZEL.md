@@ -58,7 +58,7 @@ new as of May 2017 and not very stable yet.
 - Test all packages: `bazel test packages/...`
 
 You can use [ibazel] to get a "watch mode" that continuously
-keeps the outputs up-to-date as you save sources. 
+keeps the outputs up-to-date as you save sources.
 
 ### Debugging a Node Test
 
@@ -73,3 +73,10 @@ The process should automatically connect to the debugger.
 - Run test: `bazel run packages/core/test:test_web`
 - Open chrome at: [http://localhost:9876/debug.html](http://localhost:9876/debug.html)
 - Open chrome inspector
+
+### Debugging Bazel rules
+
+Open `external` directory which contains everything that bazel downloaded while executing the workspace file:
+```sh
+open $(bazel info output_base)/external
+```

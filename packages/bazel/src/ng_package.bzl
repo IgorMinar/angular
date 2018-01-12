@@ -22,12 +22,28 @@ def _package_json(ctx):
 
 # ng_package produces package that is npm ready.
 def _ng_package_impl(ctx):
+  rollupDirectory = ctx.actions.declare_directory(ctx.label.name + '-rollup')
   directory = ctx.actions.declare_directory(ctx.label.name)
+
+  ctx.actions.run(
+      progress_message = "Angular Packaging: rolling up %s" % ctx.label.name,
+      mnemonic = "AngularPackageRollup",
+      outputs = [rollupDirectory],
+      inputs = [ctx.file.package_json] + ctx.files.deps + collect_es6_sources(ctx).to_list(),
+      executable = ctx.executable._rollup,
+      arguments = [
+        directory.path,
+        ctx.bin_dir.path + "/" + ctx.attr.package_json.label.package,
+        ctx.file.package_json.path,
+        "/".join([ctx.bin_dir.path, ctx.label.package, ctx.label.name + ".es6", ctx.attr.package_json.label.package])
+      ],
+    )
+
   ctx.actions.run(
     progress_message = "Angular Packaging: building npm package for %s" % ctx.label.name,
     mnemonic = "AngularPackage",
     outputs = [directory],
-    inputs = [ctx.file.package_json] + ctx.files.deps + collect_es6_sources(ctx).to_list(),
+    inputs = [rollupDirectory, ctx.file.package_json] + ctx.files.deps + collect_es6_sources(ctx).to_list(),
     executable = ctx.executable._packager,
     arguments = [
       directory.path,
@@ -87,6 +103,6 @@ ng_package = rule(
     #  "metadata": attr.bool(default=True),
       "version": attr.string(),
       "_packager": attr.label(default=Label("//src/packager"), executable=True, cfg="host"),
-    #  "_rollup": attr.label(default=Label("//internal:rollup"), executable=True, cfg="host"),
+      "_rollup": attr.label(default=Label("//src/rollup"), executable=True, cfg="host"),
     }
 )

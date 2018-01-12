@@ -12,7 +12,9 @@
 
     "@types/node": "6.0.84",
     "@types/shelljs": "0.7.7",
-    "shelljs": "0.7.8"
+    "shelljs": "0.7.8",
+    "rollup": "note: intentionally using an older version to be match what's currently being used",
+    "rollup": "0.47.4"
   },
   "repository": {
     "type": "git",

@@ -14,7 +14,7 @@ filegroup(
     # bazel query "deps(:node_modules)" | wc -l
     # This won't scale in the general case.
     # TODO(alexeagle): figure out what to do
-    srcs = glob(["/".join([
+    srcs = ["node_modules/rollup/bin/rollup"] + glob(["/".join([
         "node_modules",
         pkg,
         "**",
