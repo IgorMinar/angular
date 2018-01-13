@@ -25,29 +25,30 @@ def _ng_package_impl(ctx):
   npm_package_name = ctx.label.package.split("/")[-1];
   npm_package_directory = ctx.actions.declare_directory(ctx.label.name)
   esm_2015_file = ctx.actions.declare_file("esm2015/" + npm_package_name + '.js')
-
-  print("xxxx", ctx.bin_dir.path)
-  print(collect_es6_sources(ctx).to_list()[1].path)
+  inputs = collect_es6_sources(ctx).to_list()
 
   ctx.actions.run(
       progress_message = "Angular Packaging: rolling up %s" % ctx.label.name,
       mnemonic = "AngularPackageRollup",
       outputs = [esm_2015_file],
-      # removed: ctx.files.deps +
-      inputs = collect_es6_sources(ctx).to_list(),
+      inputs = inputs,
       executable = ctx.executable._rollup,
       arguments = [
-        # TODO(i): how to get this path in a proper way?!?!?
-        "--input", "bazel-out/darwin-fastbuild/bin/packages/core/package.es6/packages/core/index.js", # + npm_package_name + "/index.js",
+        # TODO(i): we probably want to make "index.js" configurable or even better auto-configured
+        #   based on the original tsconfig, since we allow the filename to be adjusted via
+        #   flatModuleOutFile config property https://angular.io/guide/aot-compiler#flatmoduleoutfile
+        "--input", inputs[0].dirname + "/" + npm_package_name + "/index.js",
         "--output", esm_2015_file.path,
+        # TODO(i): add support for license banner
         #"--banner", $BANNER_TEXT,
         "--format",  "es",
-        "--sourcemap"
-
-        #directory.path,
-        #ctx.bin_dir.path + "/" + ctx.attr.package_json.label.package,
-        #ctx.file.package_json.path,
-        #"/".join([ctx.bin_dir.path, ctx.label.package, ctx.label.name + ".es6", ctx.attr.package_json.label.package])
+        "--sourcemap",
+        # TODO(i): figure out how to handle external modules
+        #  rollup needs to know about all the external module ids either via this flag
+        #  or by finding them in node_modules when resolving the external module ids from the input
+        #  which would mean that we'd need to grab trace the node_modules used for ts compilation
+        #  and provide them to rollup
+        "--external", "rxjs"
       ],
     )
 
