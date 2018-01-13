@@ -22,5 +22,16 @@ ng_module(
 ng_package(
     name = "package",
     deps = [":core"],
-    package_json = "package.json"
+    package_json = "package.json",
+    # TODO(i): add real support for versioning
+    version = "0.0.0",
+    license_banner = "//packages:license-banner.txt",
+    globals = {
+        'rxjs/Observable': 'Rx',
+        'rxjs/Subject': 'Rx',
+        'rxjs/Observer': 'Rx',
+        'rxjs/Subscription': 'Rx',
+        'rxjs/observable/merge': 'Rx.Observable',
+        'rxjs/operator/share': 'Rx.Observable.prototype'
+    }
 )

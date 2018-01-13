@@ -7,14 +7,15 @@
 load("@build_bazel_rules_nodejs//:internal/collect_es6_sources.bzl", "collect_es6_sources")
 
 # Produce the package.json file
-def _package_json(ctx):
+def _stamp_package_json(ctx):
   package_json = ctx.file.package_json
-  output = ctx.actions.declare_file(ctx.label.name + "_package.json")
+  version_string = ctx.attr.version
+  output = ctx.actions.declare_file("package.json")
   ctx.actions.expand_template(
     template=package_json,
     output=output,
     substitutions={
-      "0.0.0-PLACEHOLDER": "0.0.0" # TODO(i): replace with real version stamping
+      "0.0.0-PLACEHOLDER": version_string
     }
   )
   return output
@@ -24,31 +25,35 @@ def _package_json(ctx):
 def _ng_package_impl(ctx):
   npm_package_name = ctx.label.package.split("/")[-1];
   npm_package_directory = ctx.actions.declare_directory(ctx.label.name)
-  esm_2015_file = ctx.actions.declare_file("esm2015/" + npm_package_name + '.js')
-  inputs = collect_es6_sources(ctx).to_list()
+  fesm_2015_file = ctx.actions.declare_file("esm2015/" + npm_package_name + '.js')
+  esm_2015_files = collect_es6_sources(ctx).to_list()
+  stamped_package_json = _stamp_package_json(ctx)
+  license_banner_file = ctx.file.license_banner
+  externals = ctx.attr.globals.keys()
+
+  license_banner = ''
+  if (license_banner_file != None):
+    # TODO(i): read the file to string for realzzz!!!!
+    license_banner = str(license_banner_file);
 
   ctx.actions.run(
       progress_message = "Angular Packaging: rolling up %s" % ctx.label.name,
       mnemonic = "AngularPackageRollup",
-      outputs = [esm_2015_file],
-      inputs = inputs,
+      outputs = [fesm_2015_file],
+      inputs = esm_2015_files,
       executable = ctx.executable._rollup,
       arguments = [
         # TODO(i): we probably want to make "index.js" configurable or even better auto-configured
         #   based on the original tsconfig, since we allow the filename to be adjusted via
         #   flatModuleOutFile config property https://angular.io/guide/aot-compiler#flatmoduleoutfile
-        "--input", inputs[0].dirname + "/" + npm_package_name + "/index.js",
-        "--output", esm_2015_file.path,
-        # TODO(i): add support for license banner
-        #"--banner", $BANNER_TEXT,
+        # TODO(i): is it ok to rely on the fact that 0-th file in the esm_2015_files is at the root
+        #   of the directory? Is there a better way to get this directory path?
+        "--input", esm_2015_files[0].dirname + "/" + npm_package_name + "/index.js",
+        "--output", fesm_2015_file.path,
+        "--banner", license_banner,
         "--format",  "es",
         "--sourcemap",
-        # TODO(i): figure out how to handle external modules
-        #  rollup needs to know about all the external module ids either via this flag
-        #  or by finding them in node_modules when resolving the external module ids from the input
-        #  which would mean that we'd need to grab trace the node_modules used for ts compilation
-        #  and provide them to rollup
-        "--external", "rxjs"
+        "--external", ",".join(externals)
       ],
     )
 
@@ -56,14 +61,14 @@ def _ng_package_impl(ctx):
     progress_message = "Angular Packaging: building npm package for %s" % ctx.label.name,
     mnemonic = "AngularPackage",
     outputs = [npm_package_directory],
-    inputs = [esm_2015_file, ctx.file.package_json] + ctx.files.deps + collect_es6_sources(ctx).to_list(),
+    inputs = [fesm_2015_file, stamped_package_json] + ctx.files.deps + collect_es6_sources(ctx).to_list(),
     executable = ctx.executable._packager,
     arguments = [
       npm_package_directory.path,
       ctx.bin_dir.path + "/" + ctx.attr.package_json.label.package,
-      ctx.file.package_json.path,
+      stamped_package_json.path,
       "/".join([ctx.bin_dir.path, ctx.label.package, ctx.label.name + ".es6", ctx.attr.package_json.label.package]),
-      esm_2015_file.path
+      fesm_2015_file.path
     ],
   )
 
@@ -114,8 +119,9 @@ ng_package = rule(
     attrs = {
       "deps": attr.label_list(),
       "package_json": attr.label(allow_single_file = FileType([".json"])),
-    #  "metadata": attr.bool(default=True),
-      "version": attr.string(),
+      "license_banner": attr.label(allow_single_file = FileType([".txt"])),
+      "version": attr.string(mandatory=True),
+      "globals": attr.string_dict(default={}),
       "_packager": attr.label(default=Label("//src/packager"), executable=True, cfg="host"),
       "_rollup": attr.label(default=Label("//src/rollup"), executable=True, cfg="host"),
     }

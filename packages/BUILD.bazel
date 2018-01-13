@@ -18,3 +18,5 @@ ts_library(
     srcs = glob(["*.ts"]),
     tsconfig = ":tsconfig",
 )
+
+exports_files(["license-banner.txt"])
