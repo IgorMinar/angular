@@ -29,6 +29,12 @@ local_repository(
     path = "packages/bazel",
 )
 
+
+load("@angular//:index.bzl", "ng_setup_workspace")
+
+ng_setup_workspace()
+
+
 local_repository(
     name = "rxjs",
     path = "node_modules/rxjs/src",

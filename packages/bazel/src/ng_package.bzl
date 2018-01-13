@@ -22,39 +22,52 @@ def _package_json(ctx):
 
 # ng_package produces package that is npm ready.
 def _ng_package_impl(ctx):
-  rollupDirectory = ctx.actions.declare_directory(ctx.label.name + '-rollup')
-  directory = ctx.actions.declare_directory(ctx.label.name)
+  npm_package_name = ctx.label.package.split("/")[-1];
+  npm_package_directory = ctx.actions.declare_directory(ctx.label.name)
+  esm_2015_file = ctx.actions.declare_file("esm2015/" + npm_package_name + '.js')
+
+  print("xxxx", ctx.bin_dir.path)
+  print(collect_es6_sources(ctx).to_list()[1].path)
 
   ctx.actions.run(
       progress_message = "Angular Packaging: rolling up %s" % ctx.label.name,
       mnemonic = "AngularPackageRollup",
-      outputs = [rollupDirectory],
-      inputs = [ctx.file.package_json] + ctx.files.deps + collect_es6_sources(ctx).to_list(),
+      outputs = [esm_2015_file],
+      # removed: ctx.files.deps +
+      inputs = collect_es6_sources(ctx).to_list(),
       executable = ctx.executable._rollup,
       arguments = [
-        directory.path,
-        ctx.bin_dir.path + "/" + ctx.attr.package_json.label.package,
-        ctx.file.package_json.path,
-        "/".join([ctx.bin_dir.path, ctx.label.package, ctx.label.name + ".es6", ctx.attr.package_json.label.package])
+        # TODO(i): how to get this path in a proper way?!?!?
+        "--input", "bazel-out/darwin-fastbuild/bin/packages/core/package.es6/packages/core/index.js", # + npm_package_name + "/index.js",
+        "--output", esm_2015_file.path,
+        #"--banner", $BANNER_TEXT,
+        "--format",  "es",
+        "--sourcemap"
+
+        #directory.path,
+        #ctx.bin_dir.path + "/" + ctx.attr.package_json.label.package,
+        #ctx.file.package_json.path,
+        #"/".join([ctx.bin_dir.path, ctx.label.package, ctx.label.name + ".es6", ctx.attr.package_json.label.package])
       ],
     )
 
   ctx.actions.run(
     progress_message = "Angular Packaging: building npm package for %s" % ctx.label.name,
     mnemonic = "AngularPackage",
-    outputs = [directory],
-    inputs = [rollupDirectory, ctx.file.package_json] + ctx.files.deps + collect_es6_sources(ctx).to_list(),
+    outputs = [npm_package_directory],
+    inputs = [esm_2015_file, ctx.file.package_json] + ctx.files.deps + collect_es6_sources(ctx).to_list(),
     executable = ctx.executable._packager,
     arguments = [
-      directory.path,
+      npm_package_directory.path,
       ctx.bin_dir.path + "/" + ctx.attr.package_json.label.package,
       ctx.file.package_json.path,
-      "/".join([ctx.bin_dir.path, ctx.label.package, ctx.label.name + ".es6", ctx.attr.package_json.label.package])
+      "/".join([ctx.bin_dir.path, ctx.label.package, ctx.label.name + ".es6", ctx.attr.package_json.label.package]),
+      esm_2015_file.path
     ],
   )
 
   return struct(
-    files = depset([directory])
+    files = depset([npm_package_directory])
   )
 
 # The directory structure is first determined by the module id. For example,

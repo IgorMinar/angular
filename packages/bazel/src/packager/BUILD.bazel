@@ -11,5 +11,6 @@ nodejs_binary(
     name = "packager",
     entry_point = "angular/src/packager/index",
     data = ["lib"],
+    node_modules = "@angular_deps//:node_modules",
     visibility = ["//visibility:public"],
 )

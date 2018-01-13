@@ -1,14 +1,8 @@
 load("@build_bazel_rules_nodejs//:defs.bzl", "nodejs_binary")
 
-#ts_library(
-#    name = "lib",
-#    srcs = glob(["*.ts"]),
-#    tsconfig = ":tsconfig.json",
-#)
-
 nodejs_binary(
     name = "rollup",
     entry_point = "rollup/bin/rollup",
-#    data = ["lib"],
+    node_modules = "@angular_deps//:node_modules",
     visibility = ["//visibility:public"],
 )
