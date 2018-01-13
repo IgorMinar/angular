@@ -25,7 +25,7 @@ def _stamp_package_json(ctx):
 def _ng_package_impl(ctx):
   npm_package_name = ctx.label.package.split("/")[-1];
   npm_package_directory = ctx.actions.declare_directory(ctx.label.name)
-  fesm_2015_file = ctx.actions.declare_file("esm2015/" + npm_package_name + '.js')
+  fesm_2015 = ctx.actions.declare_directory("fesm2015")
   esm_2015_files = collect_es6_sources(ctx).to_list()
   stamped_package_json = _stamp_package_json(ctx)
   license_banner_file = ctx.file.license_banner
@@ -39,7 +39,7 @@ def _ng_package_impl(ctx):
   ctx.actions.run(
       progress_message = "Angular Packaging: rolling up %s" % ctx.label.name,
       mnemonic = "AngularPackageRollup",
-      outputs = [fesm_2015_file],
+      outputs = [fesm_2015],
       inputs = esm_2015_files,
       executable = ctx.executable._rollup,
       arguments = [
@@ -49,9 +49,11 @@ def _ng_package_impl(ctx):
         # TODO(i): is it ok to rely on the fact that 0-th file in the esm_2015_files is at the root
         #   of the directory? Is there a better way to get this directory path?
         "--input", esm_2015_files[0].dirname + "/" + npm_package_name + "/index.js",
-        "--output", fesm_2015_file.path,
+        "--output", fesm_2015.path + "/" + npm_package_name + '.js',
         "--banner", license_banner,
         "--format",  "es",
+        # TODO(i): the source maps might be broken because of the missing
+        # TODO(i): consider "--sourcemap", "inline"
         "--sourcemap",
         "--external", ",".join(externals)
       ],
@@ -61,14 +63,14 @@ def _ng_package_impl(ctx):
     progress_message = "Angular Packaging: building npm package for %s" % ctx.label.name,
     mnemonic = "AngularPackage",
     outputs = [npm_package_directory],
-    inputs = [fesm_2015_file, stamped_package_json] + ctx.files.deps + collect_es6_sources(ctx).to_list(),
+    inputs = [fesm_2015, stamped_package_json] + ctx.files.deps + collect_es6_sources(ctx).to_list(),
     executable = ctx.executable._packager,
     arguments = [
       npm_package_directory.path,
       ctx.bin_dir.path + "/" + ctx.attr.package_json.label.package,
       stamped_package_json.path,
       "/".join([ctx.bin_dir.path, ctx.label.package, ctx.label.name + ".es6", ctx.attr.package_json.label.package]),
-      fesm_2015_file.path
+      fesm_2015.path
     ],
   )
 

@@ -30,7 +30,6 @@ ng_package(
         'rxjs/Observable': 'Rx',
         'rxjs/Subject': 'Rx',
         'rxjs/Observer': 'Rx',
-        'rxjs/Subscription': 'Rx',
         'rxjs/observable/merge': 'Rx.Observable',
         'rxjs/operator/share': 'Rx.Observable.prototype'
     }

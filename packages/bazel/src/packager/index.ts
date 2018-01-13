@@ -26,9 +26,7 @@ function main(args: string[]): number {
     shx.cp(f, outputPath);
   });
 
-  const fesm2015Dir = path.join(out, "fesm2015");
-  shx.mkdir("-p", fesm2015Dir);
-  shx.cp(fesm2015, fesm2015Dir);
+  shx.cp("-R", fesm2015, out);
 
   return 0;
 }
