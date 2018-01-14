@@ -24,8 +24,6 @@ ng_package(
     deps = [":core", "//packages/core/testing"],
     package_json = "package.json",
     readme_md = "//packages:README.md",
-    # TODO(i): add real support for versioning
-    version = "0.0.0",
     license_banner = "//packages:license-banner.txt",
     globals = {
         'rxjs/Observable': 'Rx',

@@ -6,20 +6,6 @@
 """
 load("@build_bazel_rules_nodejs//:internal/collect_es6_sources.bzl", "collect_es6_sources")
 
-# Produce the package.json file
-def _stamp_file(ctx, input_file, output_file_name):
-  version_string = ctx.attr.version
-  output = ctx.actions.declare_file(output_file_name)
-  ctx.actions.expand_template(
-    template=input_file,
-    output=output,
-    substitutions={
-      "0.0.0-PLACEHOLDER": version_string
-    }
-  )
-  return output
-
-
 def _rollup_esm2015(ctx, fesm_2015, esm_2015_files, license_banner_file, npm_package_name, license_banner_path, externals, entry_point_name):
   if  (npm_package_name == entry_point_name):
     input_dir = npm_package_name
@@ -59,9 +45,9 @@ def _ng_package_impl(ctx):
   fesm_2015 = ctx.actions.declare_directory("fesm2015-" + npm_package_name)
   fesms_2015 = [fesm_2015]
   esm_2015_files = collect_es6_sources(ctx).to_list()
-  stamped_package_json = _stamp_file(ctx, ctx.file.package_json, "package.json")
+  stamped_package_json = ctx.file.package_json
   readme_md = ctx.file.readme_md
-  license_banner_file = _stamp_file(ctx, ctx.file.license_banner, "license-banner.txt")
+  license_banner_file = ctx.file.license_banner
   externals = ctx.attr.globals.keys()
 
   license_banner_path = license_banner_file.path if  (license_banner_file != None) else "/dev/null"
@@ -144,7 +130,6 @@ ng_package = rule(
       "package_json": attr.label(allow_single_file = FileType([".json"])),
       "readme_md": attr.label(allow_single_file = FileType([".md"])),
       "license_banner": attr.label(allow_single_file = FileType([".txt"])),
-      "version": attr.string(mandatory=True),
       "globals": attr.string_dict(default={}),
       "secondary_entry_points": attr.label_list(),
       "_packager": attr.label(default=Label("//src/packager"), executable=True, cfg="host"),
@@ -165,3 +150,34 @@ ng_package_entry_point = rule(
         "globals": attr.string_dict(default={})
     }
 )
+
+def ng_package_macro(name, package_json, license_banner, **kwargs):
+  """Wraps the ng_package rule to allow running a genrule before it.
+
+  We typically don't use macros because they are a leaky abstraction.
+  However this is the only way to exercise the bazel stamping feature.
+  
+  Make sure the rule that gets the name=name is called "ng_package" so
+  it matches what the user expects when they have an "ng_package" in
+  their BUILD file.
+  """
+  native.genrule(
+      name = "%s_package_json" % name,
+      srcs = [package_json],
+      outs = ["%s_package.stamped.json" % name],
+      stamp = True,
+      cmd = "sed \"s/0.0.0-PLACEHOLDER/$$(grep BUILD_SCM_HASH bazel-out/volatile-status.txt | cut -d' ' -f 2)/\" $< > $@",
+  )
+  native.genrule(
+      name = "%s_license_banner" % name,
+      srcs = [license_banner],
+      outs = ["%s_license_banner.stamped.txt" % name],
+      stamp = True,
+      cmd = "sed \"s/0.0.0-PLACEHOLDER/$$(grep BUILD_SCM_HASH bazel-out/volatile-status.txt | cut -d' ' -f 2)/\" $< > $@",
+  )
+  ng_package(
+      name = name,
+      package_json = ":%s_package.stamped.json" % name,
+      license_banner = "%s_license_banner.stamped.txt" % name,
+      **kwargs
+  )
