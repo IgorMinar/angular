@@ -7,9 +7,10 @@ function filter(ext: string): (path: string) => boolean {
 
 function main(args: string[]): number {
   shx.set("-e");
-  const [out, srcdir, packageJson, esm2015src, fesm2015] = args;
+  const [out, srcdir, packageJson, readmeMd, esm2015src, fesm2015] = args;
   shx.mkdir("-p", out);
-  shx.cp(packageJson, path.join(out, path.basename(packageJson)));
+  shx.cp(packageJson, path.join(out, 'package.json'));
+  shx.cp(readmeMd, path.join(out, 'README.md'));
 
   const typings = shx.find("-R", srcdir);
   typings.filter(filter(".d.ts"))

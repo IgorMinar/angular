@@ -19,4 +19,4 @@ ts_library(
     tsconfig = ":tsconfig",
 )
 
-exports_files(["license-banner.txt"])
+exports_files(["license-banner.txt", "README.md"])

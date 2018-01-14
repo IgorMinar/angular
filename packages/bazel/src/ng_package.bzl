@@ -28,6 +28,7 @@ def _ng_package_impl(ctx):
   fesm_2015 = ctx.actions.declare_directory("fesm2015")
   esm_2015_files = collect_es6_sources(ctx).to_list()
   stamped_package_json = _stamp_package_json(ctx)
+  readme_md = ctx.file.readme_md
   license_banner_file = ctx.file.license_banner
   externals = ctx.attr.globals.keys()
 
@@ -63,12 +64,13 @@ def _ng_package_impl(ctx):
     progress_message = "Angular Packaging: building npm package for %s" % ctx.label.name,
     mnemonic = "AngularPackage",
     outputs = [npm_package_directory],
-    inputs = [fesm_2015, stamped_package_json] + ctx.files.deps + collect_es6_sources(ctx).to_list(),
+    inputs = [fesm_2015, stamped_package_json, readme_md] + ctx.files.deps + collect_es6_sources(ctx).to_list(),
     executable = ctx.executable._packager,
     arguments = [
       npm_package_directory.path,
       ctx.bin_dir.path + "/" + ctx.attr.package_json.label.package,
       stamped_package_json.path,
+      readme_md.path,
       "/".join([ctx.bin_dir.path, ctx.label.package, ctx.label.name + ".es6", ctx.attr.package_json.label.package]),
       fesm_2015.path
     ],
@@ -88,7 +90,7 @@ def _ng_package_impl(ctx):
 # The directory layout is:
 #   [x] <primary-entry-point>/
 #   [.]   package.json
-#   [ ]   README.md
+#   [x]   README.md
 #   [x]   <primary-entry-point>.d.ts
 #   [x]   <primary-entry-point>.metadata.json
 #   [ ]   <secondary-entry-point>.d.ts
@@ -121,6 +123,7 @@ ng_package = rule(
     attrs = {
       "deps": attr.label_list(),
       "package_json": attr.label(allow_single_file = FileType([".json"])),
+      "readme_md": attr.label(allow_single_file = FileType([".md"])),
       "license_banner": attr.label(allow_single_file = FileType([".txt"])),
       "version": attr.string(mandatory=True),
       "globals": attr.string_dict(default={}),

@@ -23,6 +23,7 @@ ng_package(
     name = "package",
     deps = [":core"],
     package_json = "package.json",
+    readme_md = "//packages:README.md",
     # TODO(i): add real support for versioning
     version = "0.0.0",
     license_banner = "//packages:license-banner.txt",
