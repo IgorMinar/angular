@@ -156,7 +156,7 @@ def ng_package_macro(name, package_json, license_banner, **kwargs):
 
   We typically don't use macros because they are a leaky abstraction.
   However this is the only way to exercise the bazel stamping feature.
-  
+
   Make sure the rule that gets the name=name is called "ng_package" so
   it matches what the user expects when they have an "ng_package" in
   their BUILD file.
