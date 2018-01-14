@@ -31,32 +31,32 @@ def _ng_package_impl(ctx):
   license_banner_file = ctx.file.license_banner
   externals = ctx.attr.globals.keys()
 
-  license_banner = ''
-  if (license_banner_file != None):
-    # TODO(i): read the file to string for realzzz!!!!
-    license_banner = str(license_banner_file);
+  license_banner_path = license_banner_file.path if  (license_banner_file != None) else "/dev/null"
 
-  ctx.actions.run(
+  ctx.actions.run_shell(
       progress_message = "Angular Packaging: rolling up %s" % ctx.label.name,
       mnemonic = "AngularPackageRollup",
       outputs = [fesm_2015],
-      inputs = esm_2015_files,
-      executable = ctx.executable._rollup,
-      arguments = [
+      inputs = esm_2015_files + [ctx.executable._rollup, license_banner_file],
+      command = " ".join([
+        # TODO(i): this feels dirty... is there a better way?
+        ctx.executable._rollup.path,
         # TODO(i): we probably want to make "index.js" configurable or even better auto-configured
         #   based on the original tsconfig, since we allow the filename to be adjusted via
         #   flatModuleOutFile config property https://angular.io/guide/aot-compiler#flatmoduleoutfile
         # TODO(i): is it ok to rely on the fact that 0-th file in the esm_2015_files is at the root
         #   of the directory? Is there a better way to get this directory path?
-        "--input", esm_2015_files[0].dirname + "/" + npm_package_name + "/index.js",
-        "--output", fesm_2015.path + "/" + npm_package_name + '.js',
-        "--banner", license_banner,
-        "--format",  "es",
-        # TODO(i): the source maps might be broken because of the missing
+        "--input " + esm_2015_files[0].dirname + "/" + npm_package_name + "/index.js",
+        "--output " + fesm_2015.path + "/" + npm_package_name + '.js',
+        "--banner " + "\"$(cat " + license_banner_path + ")\"",
+        "--format es",
         # TODO(i): consider "--sourcemap", "inline"
+        # Note: if the input has external source maps then we need to also install and use
+        #   `rollup-plugin-sourcemaps`, which will require us to use rollup.config.js file instead
+        #   of command line args
         "--sourcemap",
-        "--external", ",".join(externals)
-      ],
+        "--external " + ",".join(externals)
+      ]),
     )
 
   ctx.actions.run(
