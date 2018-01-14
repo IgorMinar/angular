@@ -71,7 +71,8 @@ def _ng_package_impl(ctx):
       ctx.bin_dir.path + "/" + ctx.attr.package_json.label.package,
       stamped_package_json.path,
       readme_md.path,
-      "/".join([ctx.bin_dir.path, ctx.label.package, ctx.label.name + ".es6", ctx.attr.package_json.label.package]),
+      # TODO(i): unflattened js files are disabled for now to match the output of build.sh
+      #"/".join([ctx.bin_dir.path, ctx.label.package, ctx.label.name + ".es6", ctx.attr.package_json.label.package]),
       fesm_2015.path
     ],
   )
