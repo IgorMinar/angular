@@ -7,7 +7,9 @@ function filter(ext: string): (path: string) => boolean {
 
 function main(args: string[]): number {
   shx.set("-e");
-  const [out, srcdir, packageJson, readmeMd, /*esm2015src,*/ fesm2015] = args;
+  const [out, srcdir, packageJson, readmeMd, /*esm2015src,*/ fesms2015asString] = args;
+  const fesms2015 = fesms2015asString.split(',');
+
   shx.mkdir("-p", out);
   shx.cp(packageJson, path.join(out, 'package.json'));
   shx.cp(readmeMd, path.join(out, 'README.md'));
@@ -34,7 +36,9 @@ function main(args: string[]): number {
 
   const esm2015Dir = path.join(out, 'esm2015');
   shx.mkdir("-p", esm2015Dir);
-  shx.cp("-R", fesm2015 + "/*", esm2015Dir);
+  fesms2015.forEach(fesm2015 =>
+    shx.cp("-R", fesm2015 + "/*", esm2015Dir)
+  );
 
   return 0;
 }

@@ -7,12 +7,11 @@
 load("@build_bazel_rules_nodejs//:internal/collect_es6_sources.bzl", "collect_es6_sources")
 
 # Produce the package.json file
-def _stamp_package_json(ctx):
-  package_json = ctx.file.package_json
+def _stamp_file(ctx, input_file, output_file_name):
   version_string = ctx.attr.version
-  output = ctx.actions.declare_file("package.json")
+  output = ctx.actions.declare_file(output_file_name)
   ctx.actions.expand_template(
-    template=package_json,
+    template=input_file,
     output=output,
     substitutions={
       "0.0.0-PLACEHOLDER": version_string
@@ -21,50 +20,68 @@ def _stamp_package_json(ctx):
   return output
 
 
+def _rollup_esm2015(ctx, fesm_2015, esm_2015_files, license_banner_file, npm_package_name, license_banner_path, externals, entry_point_name):
+  if  (npm_package_name == entry_point_name):
+    input_dir = npm_package_name
+  else:
+    input_dir = npm_package_name + "/" + entry_point_name
+
+  ctx.actions.run_shell(
+        progress_message = "Angular Packaging: rolling up %s" % ctx.label.name,
+        mnemonic = "AngularPackageRollup",
+        outputs = [fesm_2015],
+        inputs = esm_2015_files + [ctx.executable._rollup, license_banner_file],
+        command = " ".join([
+          # TODO(i): this feels dirty... is there a better way?
+          ctx.executable._rollup.path,
+          # TODO(i): we probably want to make "index.js" configurable or even better auto-configured
+          #   based on the original tsconfig, since we allow the filename to be adjusted via
+          #   flatModuleOutFile config property https://angular.io/guide/aot-compiler#flatmoduleoutfile
+          # TODO(i): is it ok to rely on the fact that 0-th file in the esm_2015_files is at the root
+          #   of the directory? Is there a better way to get this directory path?
+          "--input " + esm_2015_files[0].dirname + "/" + input_dir + "/index.js",
+          "--output " + fesm_2015.path + "/" + entry_point_name + '.js',
+          "--banner " + "\"$(cat " + license_banner_path + ")\"",
+          "--format es",
+          # TODO(i): consider "--sourcemap", "inline"
+          # Note: if the input has external source maps then we need to also install and use
+          #   `rollup-plugin-sourcemaps`, which will require us to use rollup.config.js file instead
+          #   of command line args
+          "--sourcemap",
+          "--external " + ",".join(externals),
+        ]),
+      )
+
 # ng_package produces package that is npm ready.
 def _ng_package_impl(ctx):
   npm_package_name = ctx.label.package.split("/")[-1];
   npm_package_directory = ctx.actions.declare_directory(ctx.label.name)
-  fesm_2015 = ctx.actions.declare_directory("fesm2015")
+  fesm_2015 = ctx.actions.declare_directory("fesm2015-" + npm_package_name)
+  fesms_2015 = [fesm_2015]
   esm_2015_files = collect_es6_sources(ctx).to_list()
-  stamped_package_json = _stamp_package_json(ctx)
+  stamped_package_json = _stamp_file(ctx, ctx.file.package_json, "package.json")
   readme_md = ctx.file.readme_md
-  license_banner_file = ctx.file.license_banner
+  license_banner_file = _stamp_file(ctx, ctx.file.license_banner, "license-banner.txt")
   externals = ctx.attr.globals.keys()
 
   license_banner_path = license_banner_file.path if  (license_banner_file != None) else "/dev/null"
 
-  ctx.actions.run_shell(
-      progress_message = "Angular Packaging: rolling up %s" % ctx.label.name,
-      mnemonic = "AngularPackageRollup",
-      outputs = [fesm_2015],
-      inputs = esm_2015_files + [ctx.executable._rollup, license_banner_file],
-      command = " ".join([
-        # TODO(i): this feels dirty... is there a better way?
-        ctx.executable._rollup.path,
-        # TODO(i): we probably want to make "index.js" configurable or even better auto-configured
-        #   based on the original tsconfig, since we allow the filename to be adjusted via
-        #   flatModuleOutFile config property https://angular.io/guide/aot-compiler#flatmoduleoutfile
-        # TODO(i): is it ok to rely on the fact that 0-th file in the esm_2015_files is at the root
-        #   of the directory? Is there a better way to get this directory path?
-        "--input " + esm_2015_files[0].dirname + "/" + npm_package_name + "/index.js",
-        "--output " + fesm_2015.path + "/" + npm_package_name + '.js',
-        "--banner " + "\"$(cat " + license_banner_path + ")\"",
-        "--format es",
-        # TODO(i): consider "--sourcemap", "inline"
-        # Note: if the input has external source maps then we need to also install and use
-        #   `rollup-plugin-sourcemaps`, which will require us to use rollup.config.js file instead
-        #   of command line args
-        "--sourcemap",
-        "--external " + ",".join(externals)
-      ]),
-    )
+  _rollup_esm2015(ctx, fesm_2015, esm_2015_files, license_banner_file, npm_package_name, license_banner_path, externals, npm_package_name)
+
+  for entry_point in ctx.attr.secondary_entry_points:
+    entry_point_name = entry_point.name
+    fesm_2015 = ctx.actions.declare_directory("fesm2015-" + entry_point_name)
+    fesms_2015.append(fesm_2015)
+    externals = entry_point.globals.keys()
+    _rollup_esm2015(ctx, fesm_2015, esm_2015_files, license_banner_file, npm_package_name, license_banner_path, externals, entry_point_name)
+
+  fesm_2015_paths = [f.path for f in fesms_2015]
 
   ctx.actions.run(
     progress_message = "Angular Packaging: building npm package for %s" % ctx.label.name,
     mnemonic = "AngularPackage",
     outputs = [npm_package_directory],
-    inputs = [fesm_2015, stamped_package_json, readme_md] + ctx.files.deps + collect_es6_sources(ctx).to_list(),
+    inputs = fesms_2015 + [stamped_package_json, readme_md] + ctx.files.deps + collect_es6_sources(ctx).to_list(),
     executable = ctx.executable._packager,
     arguments = [
       npm_package_directory.path,
@@ -73,7 +90,7 @@ def _ng_package_impl(ctx):
       readme_md.path,
       # TODO(i): unflattened js files are disabled for now to match the output of build.sh
       #"/".join([ctx.bin_dir.path, ctx.label.package, ctx.label.name + ".es6", ctx.attr.package_json.label.package]),
-      fesm_2015.path
+      ",".join(fesm_2015_paths)
     ],
   )
 
@@ -98,7 +115,7 @@ def _ng_package_impl(ctx):
 #   [ ]   <secondary-entry-point>.metadata.json
 #   [ ]   <secondary-entry-point>/
 #   [ ]     package.json
-#   [ ]     <secondary-entry-point>.d.ts
+#   [x]     <secondary-entry-point>.d.ts
 #   [ ]     <secondary-entry-point>.metadata.json
 #   [ ]   bundles/
 #   [ ]     <primary-entry-point>.umd.js
@@ -119,6 +136,7 @@ def _ng_package_impl(ctx):
 #   [ ]     <primary-entry-point>.js.map
 #   [ ]     <secondary-entry-point>.js
 #   [ ]     <secondary-entry-point>.js.map
+#   [ ]   <extra-files>
 ng_package = rule(
     implementation = _ng_package_impl,
     attrs = {
@@ -128,7 +146,22 @@ ng_package = rule(
       "license_banner": attr.label(allow_single_file = FileType([".txt"])),
       "version": attr.string(mandatory=True),
       "globals": attr.string_dict(default={}),
+      "secondary_entry_points": attr.label_list(),
       "_packager": attr.label(default=Label("//src/packager"), executable=True, cfg="host"),
       "_rollup": attr.label(default=Label("//src/rollup"), executable=True, cfg="host"),
+    }
+)
+
+
+def _ng_package_entry_point_impl(ctx):
+  return  struct(
+      name = ctx.attr.name,
+      globals = ctx.attr.globals
+  )
+
+ng_package_entry_point = rule(
+    implementation = _ng_package_entry_point_impl,
+    attrs = {
+        "globals": attr.string_dict(default={})
     }
 )
