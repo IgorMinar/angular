@@ -86,36 +86,36 @@ def _ng_package_impl(ctx):
 # for "@angular/core" and "http" for "@angular/common/http".
 
 # The directory layout is:
-#   <directory>/
-#     package.json
-#     <base-name>.d.ts
-#     <base-name>.metadata.json
-#     <.d.ts files (potentially in subdirectories)>
-#     <index metdata json>
-#     esm2015/
-#        <baze-name>.js                   (generated index with reexports)
-#        public_api.js
-#        src/
-#           ...
-
-
-#     bundles/
-#       <base-name>.umd.js          (flat umd module, es5 target)
-#       <base-name>.umd.js.map
-#       <base-name>.umd.min.js
-#       <base-name>.umd.min.js.map
-#     <module-name>/
-#       <base-name>.es5.js          (flat esm module, es5 target)
-#       <base-name>.es5.js.map
-#       <base-name>.js              (flat esm module, es6 target)
-#       <base-name>.js.map
-
-# For a ng_library the directory layout is:
-#   <directory>/
-#    package.json
-#    <.d.ts files (potentially in subdirectories)
-#    <.js and .js.map and .metadata.json files (potentially in subdirectories)
-
+#   [x] <primary-entry-point>/
+#   [.]   package.json
+#   [ ]   README.md
+#   [x]   <primary-entry-point>.d.ts
+#   [x]   <primary-entry-point>.metadata.json
+#   [ ]   <secondary-entry-point>.d.ts
+#   [ ]   <secondary-entry-point>.metadata.json
+#   [ ]   <secondary-entry-point>/
+#   [ ]     package.json
+#   [ ]     <secondary-entry-point>.d.ts
+#   [ ]     <secondary-entry-point>.metadata.json
+#   [ ]   bundles/
+#   [ ]     <primary-entry-point>.umd.js
+#   [ ]     <primary-entry-point>.umd.js.map
+#   [ ]     <primary-entry-point>.umd.min.js
+#   [ ]     <primary-entry-point>.umd.min.js.map
+#   [ ]     <secondary-entry-point>.umd.js
+#   [ ]     <secondary-entry-point>.umd.js.map
+#   [ ]     <secondary-entry-point>.umd.min.js
+#   [ ]     <secondary-entry-point>.umd.min.js.map
+#   [x]   esm2015/
+#   [x]     <primary-entry-point>.js
+#   [x]     <primary-entry-point>.js.map
+#   [ ]     <secondary-entry-point>.js
+#   [ ]     <secondary-entry-point>.js.map
+#   [ ]   esm5/
+#   [ ]     <primary-entry-point>.js
+#   [ ]     <primary-entry-point>.js.map
+#   [ ]     <secondary-entry-point>.js
+#   [ ]     <secondary-entry-point>.js.map
 ng_package = rule(
     implementation = _ng_package_impl,
     attrs = {

@@ -19,14 +19,21 @@ function main(args: string[]): number {
     shx.cp(f, outputPath);
   });
 
-  const esm2015 = shx.find("-R", esm2015src);
-  esm2015.filter(filter(".js")).forEach(f => {
-    const outputPath = path.join(out, "esm2015", path.relative(esm2015src, f));
-    shx.mkdir("-p", path.dirname(outputPath));
-    shx.cp(f, outputPath);
-  });
+  // TODO(i): we currently don't publish individual files, so let's disable this feature for in
+  //   order to create a distribution that matches what build.sh builds today
+  //
+  // const esm2015 = shx.find("-R", esm2015src);
+  // esm2015.filter(filter(".js")).forEach(f => {
+  //   const outputPath = path.join(out, "esm2015", path.relative(esm2015src, f));
+  //   shx.mkdir("-p", path.dirname(outputPath));
+  //   shx.cp(f, outputPath);
+  // });
+  //
+  // shx.cp("-R", fesm2015, out);
 
-  shx.cp("-R", fesm2015, out);
+  const esm2015Dir = path.join(out, 'esm2015');
+  shx.mkdir("-p", esm2015Dir);
+  shx.cp("-R", fesm2015 + "/*", esm2015Dir);
 
   return 0;
 }
