@@ -93,13 +93,13 @@ def _ng_package_impl(ctx):
 
 # The directory layout is:
 #   [x] <primary-entry-point>/
-#   [.]   package.json
+#   [x]   package.json
 #   [x]   README.md
 #   [x]   <primary-entry-point>.d.ts
 #   [x]   <primary-entry-point>.metadata.json
 #   [ ]   <secondary-entry-point>.d.ts
 #   [ ]   <secondary-entry-point>.metadata.json
-#   [ ]   <secondary-entry-point>/
+#   [x]   <secondary-entry-point>/
 #   [ ]     package.json
 #   [x]     <secondary-entry-point>.d.ts
 #   [ ]     <secondary-entry-point>.metadata.json
@@ -166,14 +166,14 @@ def ng_package_macro(name, package_json, license_banner, **kwargs):
       srcs = [package_json],
       outs = ["%s_package.stamped.json" % name],
       stamp = True,
-      cmd = "sed \"s/0.0.0-PLACEHOLDER/$$(grep BUILD_SCM_HASH bazel-out/volatile-status.txt | cut -d' ' -f 2)/\" $< > $@",
+      cmd = "sed \"s/0.0.0-PLACEHOLDER/$$(grep BUILD_SCM_VERSION bazel-out/volatile-status.txt | cut -d' ' -f 2)/\" $< > $@",
   )
   native.genrule(
       name = "%s_license_banner" % name,
       srcs = [license_banner],
       outs = ["%s_license_banner.stamped.txt" % name],
       stamp = True,
-      cmd = "sed \"s/0.0.0-PLACEHOLDER/$$(grep BUILD_SCM_HASH bazel-out/volatile-status.txt | cut -d' ' -f 2)/\" $< > $@",
+      cmd = "sed \"s/0.0.0-PLACEHOLDER/$$(grep BUILD_SCM_VERSION bazel-out/volatile-status.txt | cut -d' ' -f 2)/\" $< > $@",
   )
   ng_package(
       name = name,
