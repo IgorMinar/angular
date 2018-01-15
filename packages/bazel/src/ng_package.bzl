@@ -7,6 +7,9 @@
 load("@build_bazel_rules_nodejs//:internal/collect_es6_sources.bzl", "collect_es6_sources")
 
 def _rollup_esm2015(ctx, fesm_2015, esm_2015_files, license_banner_file, npm_package_name, license_banner_path, externals, entry_point_name):
+  # unescape slashes in entry point names since we are about to create the final fs layout
+  entry_point_name = entry_point_name.replace("_", "/")
+
   if  (npm_package_name == entry_point_name):
     input_dir = npm_package_name
   else:
@@ -96,8 +99,8 @@ def _ng_package_impl(ctx):
 #   [x]   package.json
 #   [x]   README.md
 #   [x]   <primary-entry-point>.d.ts
-#   [x]   <primary-entry-point>.metadata.json
-#   [ ]   <secondary-entry-point>.d.ts
+#   [ ]   <primary-entry-point>.metadata.json
+#   [x]   <secondary-entry-point>.d.ts
 #   [ ]   <secondary-entry-point>.metadata.json
 #   [x]   <secondary-entry-point>/
 #   [ ]     package.json

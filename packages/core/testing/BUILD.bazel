@@ -2,7 +2,7 @@ package(default_visibility = ["//visibility:public"])
 
 load("@build_bazel_rules_typescript//:defs.bzl", "ts_library")
 
-ts_library(
+ng_module(
     name = "testing",
     # TODO(i): disabled so that ng_package can depend on it
     # testonly = 1,
