@@ -4,8 +4,5 @@
     "lib": [
       "es2016"
     ]
-  },
-  "files": [
-    "packager.ts"
-  ]
+  }
 }
