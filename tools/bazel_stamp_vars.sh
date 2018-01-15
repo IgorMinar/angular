@@ -6,7 +6,7 @@ echo BUILD_SCM_HASH $(git rev-parse HEAD)
 BUILD_SCM_BUILD_VERSION_RAW=$(git describe --tags HEAD)
 
 # Find out if there are any uncommitted local changes
-# TODO(i): consider "--untracked-files=no" to ignore untracked files since they should not affect anything
+# TODO(i): is it ok to use "--untracked-files=no" to ignore untracked files since they should not affect anything
 [[ $(git status --untracked-files=no --porcelain) ]] && LOCAL_CHANGES="true" || LOCAL_CHANGES="false"
 echo BUILD_SCM_LOCAL_CHANGES ${LOCAL_CHANGES}
 
