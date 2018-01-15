@@ -1,3 +1,4 @@
+import './shelljs';
 import * as shx from 'shelljs';
 import * as path from 'path';
 
@@ -16,7 +17,9 @@ function main(args: string[]): number {
 
   const typings = shx.find("-R", srcdir);
   typings.filter(filter(".d.ts"))
-  .forEach(f => {
+  // TODO(i): this cast to string is here to get around the issue of tsc not being able to find
+  //   the type defs in @types/shelljs for some reason. Alex will need to take a look.
+    .forEach((f: string) => {
     const outputPath = path.join(out, path.relative(srcdir, f));
     shx.mkdir("-p", path.dirname(outputPath));
     shx.cp(f, outputPath);
