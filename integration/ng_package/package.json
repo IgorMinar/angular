@@ -1,7 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "shelljs": "0.8.0",
-    "@types/shelljs": "0.7.7"
-  }
-}
