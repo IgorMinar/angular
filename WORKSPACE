@@ -68,3 +68,6 @@ http_archive(
     strip_prefix = "bazel-9755c72b48866ed034bd28aa033e9abd27431b1e",
     sha256 = "5b8443fc3481b5fcd9e7f348e1dd93c1397f78b223623c39eb56494c55f41962",
 )
+
+load("//integration/bazel-ng_package:setup.bzl", integration_ng_package_setup = "setup")
+integration_ng_package_setup()
