@@ -4,15 +4,13 @@
 #     - getting rid of the nested workspace so that we can use //packages/core:package to test against
 
 load("@build_bazel_rules_typescript//:defs.bzl", "ts_library")
-load("@build_bazel_rules_nodejs//:defs.bzl", "jasmine_node_test", "npm_install")
+load("@build_bazel_rules_nodejs//:defs.bzl", "jasmine_node_test")
 
 ts_library(
     name = "spec_lib",
     srcs = glob(["*.ts"]),
     tsconfig = ":tsconfig.json",
-    # TODO(i): this doesn't work - I can't seem to be able to reference this label..
-    #   Maybe it's because the npm_install happens via the weird WORKSPACE setup function?
-    # node_modules = ":bazel_ng_package_deps",
+    node_modules = "@bazel_ng_package_deps//:node_modules",
     testonly = True
 )
 

@@ -5,5 +5,5 @@ def setup():
 
   npm_install(
       name = "bazel_ng_package_deps",
-      package_json = "//integration/bazel-ng_package:package.json",
+      package_json = "//integration/ng_package:package.json",
   )

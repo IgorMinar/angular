@@ -1,7 +1,4 @@
-// TODO(i): talk to Alex about this and how to fix it. @types/shelljs deps in package.json are not being honored.
-/// <reference path="./shelljs.d.ts" />
-import * as shelljs from 'shelljs';
-const shx = shelljs as any;
+import * as shx from 'shelljs';
 import * as path from 'path';
 
 const corePackagePath = path.join(process.env['RUNFILES'], 'angular_src', 'packages', 'core', 'package');
