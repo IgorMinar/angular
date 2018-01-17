@@ -4,6 +4,74 @@
 # found in the LICENSE file at https://angular.io/license
 """Implementation of the ng_package rule.
 """
+
+# This provider exposes another flavor of output JavaScript, which is ES5 syntax
+# with ES2015 module syntax (import/export).
+# All Bazel rules should consume the standard dev or prod mode.
+# However we need to publish this flavor on NPM, so it's necessary to be able
+# to produce it.
+ES5_ESM_TypeScript_output = provider()
+
+def _ES5_ESM_outputs_aspect(target, ctx):
+  # We can't recompile targets from a different workspace yet... why?
+  if target.label.workspace_root.startswith("external/"): return []
+
+  if hasattr(target, "typescript"):
+    # We create a new tsconfig.json file that will have our compilation settings
+    tsconfig = ctx.actions.declare_file("%s_es5_esm.tsconfig.json" % target.label.name)
+
+    rerooted_outputs = [ctx.actions.declare_file("/".join([
+        target.label.name + ".es5_esm",
+        target.label.workspace_root,
+        f.short_path[:-len(".closure.js")] + ".js"
+    ])) for f in target.typescript.replay_params.outputs
+    if not f.short_path.endswith(".externs.js")
+    ]
+    print([f.short_path for f in target.typescript.replay_params.outputs])
+
+    ctx.actions.run(
+        executable = ctx.executable._modify_tsconfig,
+        inputs = [target.typescript.replay_params.tsconfig],
+        outputs = [tsconfig],
+        arguments = [
+            target.typescript.replay_params.tsconfig.path,
+            "%s/%s.es5_esm" % (target.label.package, target.label.name),
+            tsconfig.path,
+        ],
+    )
+
+    ctx.action(
+        progress_message = "Compiling TypeScript (ES5 with ES Modules) %s" % target.label,
+        inputs = target.typescript.replay_params.inputs + [tsconfig],
+        # re-root the outputs under a ".es5_esm" directory so the path don't collide
+        outputs = rerooted_outputs,
+        arguments = [tsconfig.path],
+        executable = target.typescript.replay_params.compiler,
+        execution_requirements = {
+            "supports-workers": "0",
+        },
+    )
+
+  return [ES5_ESM_TypeScript_output(
+    files = depset(rerooted_outputs)
+  )]
+
+# Downstream rules can use this aspect to access the ES5_ESM output flavor.
+# Only terminal rules (those which expect never to be used in deps[]) should do
+# this.
+ES5_ESM_outputs_aspect = aspect(
+    implementation = _ES5_ESM_outputs_aspect,
+    # Recurse to the deps of any target we visit
+    attr_aspects = ['deps'],
+    attrs = {
+      "_modify_tsconfig": attr.label(
+          default = ("@angular//src:modify_tsconfig"),
+          allow_files = True,
+          executable = True,
+          cfg = "host")
+    },
+)
+
 load("@build_bazel_rules_nodejs//:internal/collect_es6_sources.bzl", "collect_es6_sources")
 
 def _rollup_esm2015(ctx, fesm_2015, esm_2015_files, license_banner_file, npm_package_name, license_banner_path, externals, entry_point_name):
@@ -66,11 +134,15 @@ def _ng_package_impl(ctx):
 
   fesm_2015_paths = [f.path for f in fesms_2015]
 
+  esm_es5_files = depset(transitive = [dep[ES5_ESM_TypeScript_output].files
+                                       for dep in ctx.attr.deps
+                                       if ES5_ESM_TypeScript_output in dep])
+
   ctx.actions.run(
     progress_message = "Angular Packaging: building npm package for %s" % ctx.label.name,
     mnemonic = "AngularPackage",
     outputs = [npm_package_directory],
-    inputs = fesms_2015 + [stamped_package_json, readme_md] + ctx.files.deps + collect_es6_sources(ctx).to_list(),
+    inputs = esm_es5_files.to_list() + fesms_2015 + [stamped_package_json, readme_md] + ctx.files.deps + collect_es6_sources(ctx).to_list(),
     executable = ctx.executable._packager,
     arguments = [
       npm_package_directory.path,
@@ -129,7 +201,7 @@ def _ng_package_impl(ctx):
 ng_package = rule(
     implementation = _ng_package_impl,
     attrs = {
-      "deps": attr.label_list(),
+      "deps": attr.label_list(aspects = [ES5_ESM_outputs_aspect]),
       "package_json": attr.label(allow_single_file = FileType([".json"])),
       "readme_md": attr.label(allow_single_file = FileType([".md"])),
       "license_banner": attr.label(allow_single_file = FileType([".txt"])),

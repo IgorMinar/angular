@@ -15,12 +15,14 @@ node_repositories(package_json = ["//:package.json"])
 
 git_repository(
     name = "build_bazel_rules_typescript",
-    remote = "https://github.com/bazelbuild/rules_typescript.git",
+    # Use remote alexeagle to get the replay branch.
+    # this needs to get merged upstream.
+    remote = "https://github.com/alexeagle/rules_typescript.git",
 #    tag = "0.7.1+",
-    commit = "89d2c75066bea3d9c942f29dd1d2ea543c58d6d5"
+    commit = "d8fc02f70781d708e1827ea73c2139c5200d7647"
 )
 
-load("@build_bazel_rules_typescript//:setup.bzl", "ts_setup_workspace")
+load("@build_bazel_rules_typescript//:defs.bzl", "ts_setup_workspace")
 
 ts_setup_workspace()
 

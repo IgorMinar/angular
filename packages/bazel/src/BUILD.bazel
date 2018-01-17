@@ -1,1 +1,8 @@
-# Empty marker file, indicating this directory is a Bazel package.
+load("@build_bazel_rules_nodejs//:defs.bzl", "nodejs_binary")
+
+nodejs_binary(
+    name = "modify_tsconfig",
+    entry_point = "angular/src/modify_tsconfig.js",
+    data = ["modify_tsconfig.js"],
+    visibility = ["//visibility:public"],
+)
