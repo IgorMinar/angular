@@ -27,7 +27,6 @@ def _ES5_ESM_outputs_aspect(target, ctx):
     ])) for f in target.typescript.replay_params.outputs
     if not f.short_path.endswith(".externs.js")
     ]
-    print([f.short_path for f in target.typescript.replay_params.outputs])
 
     ctx.actions.run(
         executable = ctx.executable._modify_tsconfig,

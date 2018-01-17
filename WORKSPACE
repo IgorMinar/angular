@@ -19,7 +19,7 @@ git_repository(
     # this needs to get merged upstream.
     remote = "https://github.com/alexeagle/rules_typescript.git",
 #    tag = "0.7.1+",
-    commit = "d8fc02f70781d708e1827ea73c2139c5200d7647"
+    commit = "5ccf967a393d94f53b5b1a97760eb1e18367faa3"
 )
 
 load("@build_bazel_rules_typescript//:defs.bzl", "ts_setup_workspace")
