@@ -32,8 +32,8 @@ describe("ng_package", () => {
     describe("README.md", () => {
 
       it("should have a README.md file with basic info", () => {
-        expect(shx.grep('README.md').toMatch(r`Angular`));
-        expect(shx.grep('README.md').toMatch(r`https://github.com/angular/angular`));
+        expect(shx.grep('README.md')).toMatch(r`Angular`);
+        expect(shx.grep('README.md')).toMatch(r`https://github.com/angular/angular`);
       });
     });
   });

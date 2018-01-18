@@ -135,8 +135,8 @@ ng_package = rule(
       "license_banner": attr.label(allow_single_file = FileType([".txt"])),
       "globals": attr.string_dict(default={}),
       "secondary_entry_points": attr.label_list(),
-      "_packager": attr.label(default=Label("//src/packager"), executable=True, cfg="host"),
-      "_rollup": attr.label(default=Label("//src/rollup"), executable=True, cfg="host"),
+      "_packager": attr.label(default=Label("//packages/bazel/src/packager"), executable=True, cfg="host"),
+      "_rollup": attr.label(default=Label("//packages/bazel/src/rollup"), executable=True, cfg="host"),
     }
 )
 

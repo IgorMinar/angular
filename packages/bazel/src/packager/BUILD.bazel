@@ -17,7 +17,7 @@ nodejs_binary(
     #   - Evaling a bash script in node results in a cryptic error that is hard to debug.
     #   - Can't the generated bash script be moved in to a special subdirectory or prefixed to
     #     minimize the chance of collisions?
-    entry_point = "angular/src/packager/packager.js",
+    entry_point = "angular/packages/bazel/src/packager/packager.js",
     data = ["lib"],
     node_modules = "@angular_deps//:node_modules",
     visibility = ["//visibility:public"],

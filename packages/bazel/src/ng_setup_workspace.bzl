@@ -11,5 +11,5 @@ def ng_setup_workspace():
 
   npm_install(
       name = "angular_deps",
-      package_json = "@angular//:package-deps.json",
+      package_json = "//packages/bazel:package-deps.json",
   )

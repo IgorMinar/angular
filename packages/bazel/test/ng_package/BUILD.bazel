@@ -10,7 +10,6 @@ ts_library(
     name = "spec_lib",
     srcs = glob(["*.ts"]),
     tsconfig = ":tsconfig.json",
-    node_modules = "@bazel_ng_package_deps//:node_modules",
     testonly = True
 )
 
