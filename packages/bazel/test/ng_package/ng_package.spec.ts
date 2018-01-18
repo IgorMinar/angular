@@ -1,7 +1,7 @@
 import * as shx from 'shelljs';
 import * as path from 'path';
 
-const corePackagePath = path.join(process.env['RUNFILES'], 'angular_src', 'packages', 'core', 'package');
+const corePackagePath = path.join(process.env['RUNFILES'], 'angular', 'packages', 'core', 'package');
 shx.cd(corePackagePath);
 
 /**

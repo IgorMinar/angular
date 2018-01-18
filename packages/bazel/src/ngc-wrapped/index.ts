@@ -44,7 +44,12 @@ const fileCache = new FileCache<ts.SourceFile>(debug);
 export function runOneBuild(args: string[], inputs?: {[path: string]: string}): boolean {
   if (args[0] === '-p') args.shift();
   // Strip leading at-signs, used to indicate a params file
+  console.error('xxx', args[0]);
+  console.error(process.cwd());
   const project = args[0].replace(/^@+/, '');
+  console.error("xxx2", fs.readdirSync(path.dirname(project)));
+  console.error("xxx4", parseTsconfig(project));
+
   const [{options: tsOptions, bazelOpts, files, config}] = parseTsconfig(project);
   const expectedOuts = config['angularCompilerOptions']['expectedOut'];
 

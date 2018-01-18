@@ -47,7 +47,7 @@ export function setup(
   const bazelBinPath = path.resolve(basePath, bazelBin);
   fs.mkdirSync(bazelBinPath);
 
-  const angularCorePath = path.resolve(runfilesPath, 'angular_src', 'packages', 'core');
+  const angularCorePath = path.resolve(runfilesPath, 'angular', 'packages', 'core');
   const ngFiles = listFilesRecursive(angularCorePath);
 
   const tsConfigJsonPath = path.resolve(basePath, tsconfig);
