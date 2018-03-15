@@ -6,6 +6,26 @@ currentDir=$(cd $(dirname $0); pwd)
 cd ${currentDir}
 
 
+echo "#################################"
+echo "Building @angular/* npm packages "
+echo "#################################"
+
+# Ideally these integration tests should run under bazel, and just list the npm
+# packages in their deps[].
+# Until then, we have to manually run bazel first to create the npm packages we
+# want to test.
+bazel query --output=label 'kind(npm_package, //packages/...) union kind(ng_package, //packages/...)' \
+  | xargs bazel build
+
+# Allow this test to run even if dist/ doesn't exist yet.
+# Under Bazel we don't need to create the dist folder to run the integration tests
+if [[ ! -d '../dist' ]]; then mkdir ../dist; fi
+
+# Similar to --symlink_prefix=dist/ but without creating the bazel-out symlink
+# since that has caused problems with VSCode traversing into there and exhausting
+# system filehandles.
+if [[ ! -h '../dist/bin' ]]; then ln -s $(bazel info bazel-bin) ../dist/bin; fi
+
 readonly thisDir=$(cd $(dirname $0); pwd)
 
 # Track payload size functions

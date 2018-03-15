@@ -2,13 +2,13 @@
 # yarn lockfile v1
 
 
-"@angular/animations@file:../../dist/packages-dist/animations":
-  version "6.0.0-beta.7-8203e0365a"
+"@angular/animations@file:../../dist/bin/packages/animations/npm_package":
+  version "0.0.0-PLACEHOLDER"
   dependencies:
     tslib "^1.9.0"
 
-"@angular/bazel@file:../../dist/packages-dist/bazel":
-  version "6.0.0-beta.7-8203e0365a"
+"@angular/bazel@file:../../dist/bin/packages/bazel/npm_package":
+  version "0.0.0-PLACEHOLDER"
   dependencies:
     "@bazel/typescript" "^0.11.1"
     "@types/node" "6.0.84"
@@ -16,31 +16,31 @@
     protobufjs "5.0.0"
     shelljs "0.7.8"
 
-"@angular/common@file:../../dist/packages-dist/common":
-  version "6.0.0-beta.7-8203e0365a"
+"@angular/common@file:../../dist/bin/packages/common/npm_package":
+  version "0.0.0-PLACEHOLDER"
   dependencies:
     tslib "^1.9.0"
 
-"@angular/compiler-cli@file:../../dist/packages-dist/compiler-cli":
-  version "6.0.0-beta.7-8203e0365a"
+"@angular/compiler-cli@file:../../dist/bin/packages/compiler-cli/npm_package":
+  version "0.0.0-PLACEHOLDER"
   dependencies:
     chokidar "^1.4.2"
     minimist "^1.2.0"
     reflect-metadata "^0.1.2"
     tsickle "^0.27.2"
 
-"@angular/compiler@file:../../dist/packages-dist/compiler":
-  version "6.0.0-beta.7-8203e0365a"
+"@angular/compiler@file:../../dist/bin/packages/compiler/npm_package":
+  version "0.0.0-PLACEHOLDER"
   dependencies:
     tslib "^1.9.0"
 
-"@angular/core@file:../../dist/packages-dist/core":
-  version "6.0.0-beta.7-8203e0365a"
+"@angular/core@file:../../dist/bin/packages/core/npm_package":
+  version "0.0.0-PLACEHOLDER"
   dependencies:
     tslib "^1.9.0"
 
-"@angular/platform-browser@file:../../dist/packages-dist/platform-browser":
-  version "6.0.0-beta.7-8203e0365a"
+"@angular/platform-browser@file:../../dist/bin/packages/platform-browser/npm_package":
+  version "0.0.0-PLACEHOLDER"
   dependencies:
     tslib "^1.9.0"
 
