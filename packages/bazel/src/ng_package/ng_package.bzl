@@ -77,6 +77,12 @@ def _rollup(ctx, rollup_config, entry_point, inputs, js_output, format = "es"):
   args.add("--external")
   args.add(externals, join_with=",")
 
+  globals_string = ""
+  for i in globals:
+    globals_string += i + ":" + globals[i] + ","
+  args.add("--globals")
+  args.add(globals_string)
+
   other_inputs = [ctx.executable._rollup, rollup_config]
   if ctx.file.license_banner:
     other_inputs.append(ctx.file.license_banner)
