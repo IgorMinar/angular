@@ -30,7 +30,7 @@ https://stackblitz.com/...
 If StackBlitz is not suitable for reproduction of your issue, please create a minimal GitHub repository with the reproduction of the issue and share it below.
 -->
 
-**Exception or error**
+## 🔥 Exception or error
 <pre><code>
 <!-- If the issue is accompanied with an exception or an error, please share it below: -->
 
