@@ -13,7 +13,7 @@ Existing issues often contain information about workarounds, resolution, or prog
 **Affected Package**
 <!-- If you can pin-point one or more @angular/* packages as the source of the bug please share that info: -->
 
-<!-- edit: --> The issue is caused by package @angular/....
+<!-- ✍️edit: --> The issue is caused by package @angular/....
 
 
 **Is this a regression?**
