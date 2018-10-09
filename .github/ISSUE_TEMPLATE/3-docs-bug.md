@@ -48,14 +48,8 @@ Existing issues often contain information about workarounds, resolution, or prog
 
 ## 🌍  Your Environment
 
-**Angular Version:**
-<pre><code>
-<!-- run `ng version` and paste output below -->
-<!-- ✍️-->
-
-</code></pre>
-
-**Anything else relevant?**
+**Your browser:**
 <!-- ✍️Is this a browser specific issue? If so, please specify the browser and version. -->
 
-<!-- ✍️Does any of these matter operating system, IDE, package manager, HTTP server, ...? Is so please mention it below. -->
+**Anything else relevant?**
+<!-- ✍️Please provide additional info if necessary. -->
