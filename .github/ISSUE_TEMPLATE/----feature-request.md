@@ -1,6 +1,6 @@
 ---
 name: "\U0001F680Feature request"
-about: Suggest an idea for this project
+about: Suggest an feature for the Angular Framework
 
 ---
 
