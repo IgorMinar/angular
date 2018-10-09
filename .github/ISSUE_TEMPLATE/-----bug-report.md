@@ -15,30 +15,26 @@ Existing issues often contain information about workarounds, resolution, or prog
 # 🐞 bug report
 
 **Affected Package**
-<!-- If you can pin-point one or more @angular/* packages as the source of the bug please share that info: -->
-
+<!-- Can you pin-point one or more @angular/* packages as the source of the bug? -->
 <!-- ✍️edit: --> The issue is caused by package @angular/....
 
 
 **Is this a regression?**
 
-<!-- If this behavior used to work in the previous version, please share the previous known version not affected by the bug. -->
-
-<!-- ✍️edit: --> Yes, the previous version in which this bug was not present was: ....
+<!-- Did this behavior use to work in the previous version? -->
+<!-- ✍️--> Yes, the previous version in which this bug was not present was: ....
 
 
 **Description**
 
-<!-- ✍️edit: --> A clear and concise description of the problem...
+<!-- ✍️--> A clear and concise description of the problem...
 
 
 ## 🔬 Minimal Reproduction
 <!--
-Please create minimal reproduction of the issue starting with this template: https://stackblitz.com/fork/angular-issue-repro2
-Share the link to the Stackblitz below
+Please create and share minimal reproduction of the issue starting with this template: https://stackblitz.com/fork/angular-issue-repro2
 -->
-
-<!-- ✍️edit: --> https://stackblitz.com/...
+<!-- ✍️--> https://stackblitz.com/...
 
 <!--
 If StackBlitz is not suitable for reproduction of your issue, please create a minimal GitHub repository with the reproduction of the issue. Share the link to the repo below along with, build and step-by-step instructions to reproduce the problem, as well as expected and actual behavior.
@@ -46,7 +42,8 @@ If StackBlitz is not suitable for reproduction of your issue, please create a mi
 
 ## 🔥 Exception or Error
 <pre><code>
-<!-- ✍️If the issue is accompanied with an exception or an error, please share it below: -->
+<!-- If the issue is accompanied with an exception or an error, please share it below: -->
+<!-- ✍️-->
 
 </code></pre>
 
@@ -55,7 +52,8 @@ If StackBlitz is not suitable for reproduction of your issue, please create a mi
 
 **Angular Version:**
 <pre><code>
-<!-- ✍️run `ng version` and paste output below -->
+<!-- run `ng version` and paste output below -->
+<!-- ✍️-->
 
 </code></pre>
 
