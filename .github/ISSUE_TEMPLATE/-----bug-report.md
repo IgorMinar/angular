@@ -1,21 +1,25 @@
----
-name: "\U0001F41EBug report"
-about: Report an issue in the Angular Framework
----
-
-<!---
-🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅
+<!--🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅
 
 Oh hi there! 😄 
 
 To expedite issue processing please search open and closed issues before submitting a new one.
 Existing issues often contain information about workarounds, resolution, or progress updates.
 
-🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅
--->
+🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅-->
 
 
 # 🐞 bug report
+
+**Affected Package**
+<!-- If you can attribute the issue to one or more of the @angular/* packages please let us know -->
+
+The issue is caused by package @angular/....
+
+
+**Is this a regression?**
+
+Yes, the previous version in which this bug was not present was: ....
+
 
 **Description**
 
@@ -34,7 +38,7 @@ https://stackblitz.com/...
 If StackBlitz is not suitable for reproduction of your issue, please create a minimal GitHub repository with the reproduction of the issue and share it below.
 -->
 
-## 🔥 Exception or error
+## 🔥Exception or error
 <pre><code>
 <!-- If the issue is accompanied with an exception or an error, please share it below: -->
 
