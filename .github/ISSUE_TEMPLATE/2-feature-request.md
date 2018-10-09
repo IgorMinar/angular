@@ -15,7 +15,7 @@ Existing issues often contain information about workarounds, resolution, or prog
 
 # 🚀 feature request
 
-### Affected Package
+### Releavant Package
 <!-- Can you pin-point one or more @angular/* packages the are relevant for this feature request? -->
 <!-- ✍️edit: --> This feature request is for @angular/....
 
@@ -25,7 +25,7 @@ Existing issues often contain information about workarounds, resolution, or prog
 
 
 ### Describe the solution you'd like
-<!-- ✍️--> A clear and concise description of the proposed solution if you have one.
+<!-- ✍️--> If you have a solution in mind, please describe it.
 
 
 ### Describe alternatives you've considered
