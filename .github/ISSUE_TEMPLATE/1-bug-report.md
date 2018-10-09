@@ -14,18 +14,18 @@ Existing issues often contain information about workarounds, resolution, or prog
 
 # 🐞 bug report
 
-**Affected Package**
+### Affected Package
 <!-- Can you pin-point one or more @angular/* packages as the source of the bug? -->
 <!-- ✍️edit: --> The issue is caused by package @angular/....
 
 
-**Is this a regression?**
+### Is this a regression?
 
 <!-- Did this behavior use to work in the previous version? -->
 <!-- ✍️--> Yes, the previous version in which this bug was not present was: ....
 
 
-**Description**
+### Description
 
 <!-- ✍️--> A clear and concise description of the problem...
 
