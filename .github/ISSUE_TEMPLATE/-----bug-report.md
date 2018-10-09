@@ -1,13 +1,13 @@
 ---
 name: "\U0001F41EBug report"
-about: Create a report to help us improve
-
+about: Report an issue in the Angular Framework
 ---
 
 <!---
 Oh hi there! 😄 
 
-To expedite issue processing please search open and closed issues before submitting a new one. Existing issues often contain information about workarounds, resolution, or progress updates.
+To expedite issue processing please search open and closed issues before submitting a new one.
+Existing issues often contain information about workarounds, resolution, or progress updates.
 -->
 
 
@@ -18,25 +18,23 @@ To expedite issue processing please search open and closed issues before submitt
 A clear and concise description of the problem...
 
 
-**To Reproduce**
+**Minimal Reproduction**
 <!--
 Please create minimal reproduction of the issue starting with this template: https://stackblitz.com/fork/angular-issue-repro2
+Share the link to the Stackblitz below
 -->
 
-Steps to reproduce the behavior:
-1. Go to <!-- stackblitz url --> 
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+https://stackblitz.com/...
 
-**Expected behavior**
+<!--
+If StackBlitz is not suitable for reproduction of your issue, please create a minimal GitHub repository with the reproduction of the issue and share it below.
+-->
 
-A clear and concise description of what you expected to happen.
+**Exception or error**
+<pre><code>
+<!-- If the issue is accompanied with an exception or an error, please share it below: -->
 
-
-**Additional context**
-
-Add any other context about the problem here.
+</code></pre>
 
 
 ## 🌍 Your Environment
@@ -50,4 +48,4 @@ Add any other context about the problem here.
 **Anything else relevant?**
 <!-- Is this a browser specific issue? If so, please specify the browser and version. -->
 
-<!-- Does any of these matter operating system version, IDE, package manager, HTTP server, ... -->
+<!-- Does any of these matter operating system, IDE, package manager, HTTP server, ...? Is so please mention it below. -->
