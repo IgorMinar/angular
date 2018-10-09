@@ -37,7 +37,7 @@ Share the link to the Stackblitz below
 <!-- ✍️edit: --> https://stackblitz.com/...
 
 <!--
-If StackBlitz is not suitable for reproduction of your issue, please create a minimal GitHub repository with the reproduction of the issue and share it below.
+If StackBlitz is not suitable for reproduction of your issue, please create a minimal GitHub repository with the reproduction of the issue. Share the link to the repo below along with, build and step-by-step instructions to reproduce the problem, as well as expected and actual behavior.
 -->
 
 ## 🔥 Exception or Error
