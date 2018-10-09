@@ -14,21 +14,21 @@ Existing issues often contain information about workarounds, resolution, or prog
 
 # 📚 Docs or angular.io bug report
 
-**Description**
+### Description
 
 <!-- ✍️edit:--> A clear and concise description of the problem...
 
 
 ## 🔬 Minimal Reproduction
 
-**What's the affected URL?**
+### What's the affected URL?**
 <!-- ✍️edit:--> https://angular.io/...
 
-**Reproduction Steps**
+### Reproduction Steps**
 <!-- If applicable please list the steps to take to reproduce the issue -->
 <!-- ✍️edit:-->
 
-**Expected vs Actual Behavior**
+### Expected vs Actual Behavior**
 <!-- If applicable please describe the difference between the expected and actual behavior after following the repro steps. -->
 <!-- ✍️edit:-->
 
@@ -48,8 +48,8 @@ Existing issues often contain information about workarounds, resolution, or prog
 
 ## 🌍  Your Environment
 
-**Your browser:**
+### Your browser:
 <!-- ✍️Is this a browser specific issue? If so, please specify the browser and version. -->
 
-**Anything else relevant?**
+### Anything else relevant?
 <!-- ✍️Please provide additional info if necessary. -->
