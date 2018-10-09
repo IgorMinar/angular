@@ -48,8 +48,8 @@ Existing issues often contain information about workarounds, resolution, or prog
 
 ## 🌍  Your Environment
 
-### Your browser:
-<!-- ✍️Is this a browser specific issue? If so, please specify the browser and version. -->
+### Browser info
+<!-- ✍️Is this a browser specific issue? If so, please specify the device, browser, and version. -->
 
 ### Anything else relevant?
 <!-- ✍️Please provide additional info if necessary. -->
