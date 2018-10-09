@@ -1,5 +1,5 @@
 ---
-name: "❓Support Request"
+name: "❓Support request"
 about: Information about Questions and requests for support
 
 ---
