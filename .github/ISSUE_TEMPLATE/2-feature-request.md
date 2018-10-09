@@ -1,17 +1,29 @@
 ---
 name: "\U0001F680Feature request"
-about: Suggest an feature for the Angular Framework
+about: Suggest a feature for Angular Framework
 
 ---
+<!--🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+Oh hi there! 😄 
+
+To expedite issue processing please search open and closed issues before submitting a new one.
+Existing issues often contain information about workarounds, resolution, or progress updates.
+
+🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅-->
+
+
+# 🚀 feature request
+
+**Affected Package**
+<!-- Can you pin-point one or more @angular/* packages the are relevant for this feature request? -->
+<!-- ✍️edit: --> This feature request is for @angular/....
+
+**Description**
+<!-- ✍️--> A clear and concise description of the problem or missing capability...
 
 **Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+<!-- ✍️--> A clear and concise description of the proposed solution if you have one.
 
 **Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
-
-**Additional context**
-Add any other context or screenshots about the feature request here.
+<!-- ✍️--> Have you considered any alternative solutions or workarounds?
