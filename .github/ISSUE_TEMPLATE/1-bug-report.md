@@ -1,6 +1,6 @@
 ---
 name: "\U0001F41EBug report"
-about: Report an issue in the Angular Framework
+about: Report an issue in Angular Framework
 ---
 <!--🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅
 
