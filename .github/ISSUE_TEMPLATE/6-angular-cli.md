@@ -6,8 +6,8 @@ about: Issues and feature requests for Angular CLI
 
 🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑
 
-For the time being we keep Angular CLI issues in a separate repository.
+Please file any Angular CLI issues at: https://github.com/angular/angular-cli/issues/new
 
-Please file your issue at: https://github.com/angular/angular-cli/issues/new
+For the time being we keep Angular CLI issues in a separate repository.
 
 🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑
