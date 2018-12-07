@@ -8,6 +8,8 @@
 import {dirname} from 'canonical-path';
 import {existsSync, writeFileSync} from 'fs';
 import {mkdir, mv} from 'shelljs';
+// "unused" import needed by tsc type inference
+import * as ts from 'typescript';
 
 import {DecorationAnalyzer} from '../analysis/decoration_analyzer';
 import {NgccReferencesRegistry} from '../analysis/ngcc_references_registry';
@@ -23,6 +25,7 @@ import {FileInfo, Renderer} from '../rendering/renderer';
 import {checkMarkerFile, writeMarkerFile} from './build_marker';
 import {EntryPoint} from './entry_point';
 import {EntryPointBundle} from './entry_point_bundle';
+
 
 /**
  * A Package is stored in a directory on disk and that directory can contain one or more package
