@@ -141,9 +141,18 @@ describe('diagnostics', () => {
     });
 
     // this seems like the last failing test, I asked Keen to help debug it.
-    fit('should not report an error for sub-types of string', () => {
+    it('should not report an error for sub-types of string', () => {
       const code =
           ` @Component({template: \`<div *ngIf="something === 'foo'"></div>\`}) export class MyComponent { something: 'foo' | 'bar'; }`;
+      addCode(code, fileName => {
+        const diagnostics = ngService.getDiagnostics(fileName);
+        expectOnlyModuleDiagnostics(diagnostics);
+      });
+    });
+
+    it('should not report an error for sub-types of number', () => {
+      const code =
+          ` @Component({template: \`<div *ngIf="something === 123"></div>\`}) export class MyComponent { something: 123 | 456; }`;
       addCode(code, fileName => {
         const diagnostics = ngService.getDiagnostics(fileName);
         expectOnlyModuleDiagnostics(diagnostics);
