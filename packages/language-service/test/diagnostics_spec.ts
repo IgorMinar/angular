@@ -140,7 +140,8 @@ describe('diagnostics', () => {
           code, fileName => { expect(() => ngService.getDiagnostics(fileName)).not.toThrow(); });
     });
 
-    it('should not report an error for sub-types of string', () => {
+    // this seems like the last failing test, I asked Keen to help debug it.
+    fit('should not report an error for sub-types of string', () => {
       const code =
           ` @Component({template: \`<div *ngIf="something === 'foo'"></div>\`}) export class MyComponent { something: 'foo' | 'bar'; }`;
       addCode(code, fileName => {
